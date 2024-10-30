@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class CharacterDamageComponent : IDamageComponent
 {
     public float Damage => 10;

@@ -1,6 +1,5 @@
 public enum AiState
 {
-    None = 0,
-    MoveToTarget = 1,
-    Attack = 2,
+    MoveToTarget = 0,
+    Attack = 1,
 }

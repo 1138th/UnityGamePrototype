@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Character
@@ -18,10 +16,10 @@ public class Enemy : Character
 
     public override void Update()
     {
+        var distanceToTarget = Vector3.Distance(targetCharacter.transform.position, transform.position);
+
         switch (currentState)
         {
-            case AiState.None:
-                break;
             case AiState.MoveToTarget:
                 Vector3 direction = targetCharacter.transform.position - transform.position;
                 direction.Normalize();
@@ -29,13 +27,22 @@ public class Enemy : Character
                 MovableComponent.Move(direction);
                 MovableComponent.Rotate(direction);
 
-                if (Vector3.Distance(targetCharacter.transform.position, transform.position) < 3 && timeBetweenAttack <= 0)
+                if (distanceToTarget < 2)
+                {
+                    currentState = AiState.Attack;
+                }
+                break;
+            case AiState.Attack:
+                if (distanceToTarget >= 2)
+                {
+                    currentState = AiState.MoveToTarget;
+                }
+                if (timeBetweenAttack <= 0)
                 {
                     DamageComponent.DoDamage(targetCharacter);
                     timeBetweenAttack = characterData.TimeBetweenAttacks;
                 }
-                if (timeBetweenAttack > 0)
-                {
+                else {
                     timeBetweenAttack -= Time.deltaTime;
                 }
                 break;
