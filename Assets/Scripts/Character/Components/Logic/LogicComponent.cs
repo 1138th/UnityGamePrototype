@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class MovementLogicComponent : CharacterComponent, ILogicComponent
+public class LogicComponent : CharacterComponent, ILogicComponent
 {
-    private float timeBetweenAttack = 0;
+    private float timeBetweenAttack;
 
     public void ManualMove()
     {
@@ -13,21 +13,20 @@ public class MovementLogicComponent : CharacterComponent, ILogicComponent
         var movementVector = new Vector3(moveHorizontal, 0, moveVertical).normalized;
 
         Character.MovableComponent.Move(movementVector);
-        Character.MovableComponent.Rotate(movementVector);
+        Character.MovableComponent.LookAt(Input.mousePosition);
     }
     
-    public void AutoMove(Character targetCharacter, ref AiState currentState)
+    public void AutoMove(Character target, ref AiState currentState)
     {
-        var distanceToTarget = Vector3.Distance(targetCharacter.transform.position, Character.transform.position);
+        var distanceToTarget = Vector3.Distance(target.transform.position, Character.transform.position);
 
         switch (currentState)
         {
             case AiState.MoveToTarget:
-                var direction = targetCharacter.transform.position - Character.transform.position;
-                direction.Normalize();
+                var direction = (target.transform.position - Character.transform.position).normalized;
 
                 Character.MovableComponent.Move(direction);
-                Character.MovableComponent.Rotate(direction);
+                Character.MovableComponent.LookAt(target);
 
                 if (distanceToTarget < Character.data.AttackRange)
                 {
@@ -39,17 +38,22 @@ public class MovementLogicComponent : CharacterComponent, ILogicComponent
                 {
                     currentState = AiState.MoveToTarget;
                 }
-                if (timeBetweenAttack <= 0)
-                {
-                    Character.DamageComponent.DealDamage(targetCharacter);
-                    timeBetweenAttack = Character.data.TimeBetweenAttacks;
-                }
-                else {
-                    timeBetweenAttack -= Time.deltaTime;
-                }
+                Attack(target);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(currentState), currentState, "Invalid Character State!");
+        }
+    }
+
+    private void Attack(Character target)
+    {
+        if (timeBetweenAttack <= 0)
+        {
+            Character.DamageComponent.DealDamage(target);
+            timeBetweenAttack = Character.data.TimeBetweenAttacks;
+        }
+        else {
+            timeBetweenAttack -= Time.deltaTime;
         }
     }
 }
