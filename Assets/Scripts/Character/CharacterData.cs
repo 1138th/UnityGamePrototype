@@ -16,12 +16,5 @@ public class CharacterData : MonoBehaviour
     public float TimeBetweenAttacks => timeBetweenAttacks;
     public float AttackRange => attackRange;
     public Transform CharacterTransform => characterTransform;
-
-    public CharacterController CharacterController 
-    { 
-        get
-        { 
-            return characterController;
-        }
-    }
+    public CharacterController CharacterController => characterController;
 }

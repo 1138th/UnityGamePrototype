@@ -28,20 +28,20 @@ public class MovementLogicComponent : CharacterComponent, ILogicComponent
                 Character.MovableComponent.Move(direction);
                 Character.MovableComponent.Rotate(direction);
 
-                if (distanceToTarget < Character.characterData.AttackRange)
+                if (distanceToTarget < Character.data.AttackRange)
                 {
                     currentState = AiState.Attack;
                 }
                 break;
             case AiState.Attack:
-                if (distanceToTarget >= Character.characterData.AttackRange)
+                if (distanceToTarget >= Character.data.AttackRange)
                 {
                     currentState = AiState.MoveToTarget;
                 }
                 if (timeBetweenAttack <= 0)
                 {
-                    Character.DamageComponent.DoDamage(targetCharacter);
-                    timeBetweenAttack = Character.characterData.TimeBetweenAttacks;
+                    Character.DamageComponent.DealDamage(targetCharacter);
+                    timeBetweenAttack = Character.data.TimeBetweenAttacks;
                 }
                 else {
                     timeBetweenAttack -= Time.deltaTime;

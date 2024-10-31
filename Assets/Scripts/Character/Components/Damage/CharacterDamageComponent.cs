@@ -1,8 +1,8 @@
 public class CharacterDamageComponent : CharacterComponent, IDamageComponent
 {
-    public void DoDamage(Character target)
+    public void DealDamage(Character target)
     {
         if (target.HealthComponent != null)
-            target.HealthComponent.TakeDamage(Character.characterData.Damage);
+            target.HealthComponent.TakeDamage(Character.data.Damage);
     }
 }

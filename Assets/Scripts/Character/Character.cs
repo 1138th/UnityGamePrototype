@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] public CharacterData characterData { get; private set; }
+    [SerializeField] public CharacterData data { get; private set; }
 
     public IMovable MovableComponent { get; protected set; }
     public ILogicComponent MovementLogicComponent { get; protected set; }
@@ -11,7 +11,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void Start()
     {
-        characterData = GetComponent<CharacterData>();
+        data = GetComponent<CharacterData>();
 
         MovableComponent = new CharacterMovementComponent();
         MovementLogicComponent = new MovementLogicComponent();

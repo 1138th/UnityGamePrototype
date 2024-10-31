@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ImmortalComponent : CharacterComponent, IHealthComponent
 {
-    public float MaxHealth { get => Character.characterData.MaxHealth; set { } }
-    public float CurrentHealth { get; set; }
+    public float MaxHealth { get => Character.data.MaxHealth; set { } }
+    public float CurrentHealth { get; private set; }
 
     public void TakeDamage(float damage)
     {
