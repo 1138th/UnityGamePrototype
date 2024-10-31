@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MovementLogicComponent : CharacterComponent, ILogicComponent
@@ -6,10 +7,10 @@ public class MovementLogicComponent : CharacterComponent, ILogicComponent
 
     public void ManualMove()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        var moveHorizontal = Input.GetAxis("Horizontal");
+        var moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movementVector = new Vector3(moveHorizontal, 0, moveVertical).normalized;
+        var movementVector = new Vector3(moveHorizontal, 0, moveVertical).normalized;
 
         Character.MovableComponent.Move(movementVector);
         Character.MovableComponent.Rotate(movementVector);
@@ -22,7 +23,7 @@ public class MovementLogicComponent : CharacterComponent, ILogicComponent
         switch (currentState)
         {
             case AiState.MoveToTarget:
-                Vector3 direction = targetCharacter.transform.position - Character.transform.position;
+                var direction = targetCharacter.transform.position - Character.transform.position;
                 direction.Normalize();
 
                 Character.MovableComponent.Move(direction);
@@ -47,6 +48,8 @@ public class MovementLogicComponent : CharacterComponent, ILogicComponent
                     timeBetweenAttack -= Time.deltaTime;
                 }
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(currentState), currentState, "Invalid Character State!");
         }
     }
 }
