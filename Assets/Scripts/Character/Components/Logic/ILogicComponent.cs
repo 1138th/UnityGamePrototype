@@ -1,4 +1,6 @@
 public interface ILogicComponent : ICharacterComponent
 {
-    public void DoDamage(Character target);
+    public void ManualMove();
+
+    public void AutoMove(Character targetCharacter, ref AiState state);
 }

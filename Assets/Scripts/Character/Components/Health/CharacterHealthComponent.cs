@@ -22,7 +22,7 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
 
     public new void Initialize(Character character)
     {
-        Character = character;
+        base.Initialize(character);
         CurrentHealth = Character.characterData.MaxHealth;
     }
 
