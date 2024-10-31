@@ -1,6 +1,4 @@
-public interface IDamageComponent
+public interface IDamageComponent : ICharacterComponent
 {
-    public float Damage { get; }
-
     public void DoDamage(Character target);
 }

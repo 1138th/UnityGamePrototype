@@ -445,7 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc9d842b821996488f6adeb1e7be125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 1198234801}
 --- !u!114 &1198234801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +457,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8fe4a20ed00b244add589d8c80c682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  maxHealth: 50
+  speed: 10
+  damage: 10
+  attackRange: 0
   timeBetweenAttacks: 0
   characterTransform: {fileID: 1198234803}
   characterController: {fileID: 1198234802}
@@ -745,7 +747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3e74cb247a02f47a9ad337e4fbfae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 2003810640}
   targetCharacter: {fileID: 1198234800}
   currentState: 0
 --- !u!114 &2003810640
@@ -760,7 +761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8fe4a20ed00b244add589d8c80c682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 50
   speed: 3
+  damage: 10
+  attackRange: 2
   timeBetweenAttacks: 1
   characterTransform: {fileID: 2003810642}
   characterController: {fileID: 2003810641}

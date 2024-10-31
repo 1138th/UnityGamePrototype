@@ -12,6 +12,8 @@ public class Enemy : Character
 
         HealthComponent = new ImmortalComponent();
         DamageComponent = new CharacterDamageComponent();
+        HealthComponent.Initialize(this);
+        DamageComponent.Initialize(this);
     }
 
     public override void Update()
@@ -27,13 +29,13 @@ public class Enemy : Character
                 MovableComponent.Move(direction);
                 MovableComponent.Rotate(direction);
 
-                if (distanceToTarget < 2)
+                if (distanceToTarget < characterData.AttackRange)
                 {
                     currentState = AiState.Attack;
                 }
                 break;
             case AiState.Attack:
-                if (distanceToTarget >= 2)
+                if (distanceToTarget >= characterData.AttackRange)
                 {
                     currentState = AiState.MoveToTarget;
                 }

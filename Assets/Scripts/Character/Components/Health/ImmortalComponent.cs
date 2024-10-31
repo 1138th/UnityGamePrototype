@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class ImmortalComponent : IHealthComponent
+public class ImmortalComponent : CharacterComponent, IHealthComponent
 {
-    public float MaxHealth { get => 1; set { } }
-    public float CurrentHealth { get => 1; set { } }
+    public float MaxHealth { get => Character.characterData.MaxHealth; set { } }
+    public float CurrentHealth { get; set; }
 
     public void TakeDamage(float damage)
     {

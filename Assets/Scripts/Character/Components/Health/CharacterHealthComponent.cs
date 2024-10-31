@@ -1,18 +1,17 @@
 using UnityEngine;
 
-public class CharacterHealthComponent : IHealthComponent
+public class CharacterHealthComponent : CharacterComponent, IHealthComponent
 {
     private float currentHealth;
 
-    public float MaxHealth { get => 50; protected set { return; } }
     public float CurrentHealth
     {
         get => currentHealth;
-        protected set
+        private set
         {
             currentHealth = value;
-            if (currentHealth > MaxHealth)
-                currentHealth = MaxHealth;
+            if (currentHealth > Character.characterData.MaxHealth)
+                currentHealth = Character.characterData.MaxHealth;
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
@@ -21,9 +20,10 @@ public class CharacterHealthComponent : IHealthComponent
         }
     }
 
-    public CharacterHealthComponent()
+    public new void Initialize(Character character)
     {
-        CurrentHealth = MaxHealth;
+        Character = character;
+        CurrentHealth = Character.characterData.MaxHealth;
     }
 
     public void TakeDamage(float damage)

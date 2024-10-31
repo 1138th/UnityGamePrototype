@@ -1,6 +1,5 @@
-public interface IHealthComponent
+public interface IHealthComponent : ICharacterComponent
 {
-    public float MaxHealth { get; }
     public float CurrentHealth { get; }
 
     public void TakeDamage(float damage);

@@ -8,6 +8,7 @@ public class Player : Character
         base.Start();
 
         HealthComponent = new CharacterHealthComponent();
+        HealthComponent.Initialize(this);
     }
 
     public override void Update()

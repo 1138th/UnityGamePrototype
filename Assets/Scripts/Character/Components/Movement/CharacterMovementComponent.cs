@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class CharacterMovementComponent : IMovable
+public class CharacterMovementComponent : CharacterComponent, IMovable
 {
-    private CharacterData characterData;
     private float speed;
 
     public float Speed
@@ -16,10 +15,10 @@ public class CharacterMovementComponent : IMovable
         }
     }
 
-    public void Initialize(CharacterData characterData)
+    public new void Initialize(Character character)
     {
-        this.characterData = characterData;
-        speed = characterData.DefaultSpeed;
+        Character = character;
+        speed = Character.characterData.DefaultSpeed;
     }
 
     public void Move(Vector3 direction)
@@ -29,7 +28,7 @@ public class CharacterMovementComponent : IMovable
 
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         Vector3 move = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-        characterData.CharacterController.Move(move * speed * Time.deltaTime);
+        Character.characterData.CharacterController.Move(move * speed * Time.deltaTime);
     }
 
     public void Rotate(Vector3 direction)
@@ -39,6 +38,6 @@ public class CharacterMovementComponent : IMovable
 
         float rotationSmoothness = 0.1f;
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        float angle = Mathf.SmoothDampAngle(characterData.CharacterTransform.eulerAngles.y, targetAngle, ref rotationSmoothness, rotationSmoothness);
+        float angle = Mathf.SmoothDampAngle(Character.characterData.CharacterTransform.eulerAngles.y, targetAngle, ref rotationSmoothness, rotationSmoothness);
     }
 }
