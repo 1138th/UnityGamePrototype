@@ -18,6 +18,6 @@ public class Enemy : Character
 
     public override void Update()
     {
-        MovementLogicComponent.AutoMove(targetCharacter, ref currentState);
+        LogicComponent.AutoMove(targetCharacter, ref currentState);
     }
 }

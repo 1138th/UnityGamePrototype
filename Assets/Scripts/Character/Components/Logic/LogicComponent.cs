@@ -28,13 +28,13 @@ public class LogicComponent : CharacterComponent, ILogicComponent
                 Character.MovableComponent.Move(direction);
                 Character.MovableComponent.LookAt(target);
 
-                if (distanceToTarget < Character.data.AttackRange)
+                if (distanceToTarget < Character.Data.AttackRange)
                 {
                     currentState = AiState.Attack;
                 }
                 break;
             case AiState.Attack:
-                if (distanceToTarget >= Character.data.AttackRange)
+                if (distanceToTarget >= Character.Data.AttackRange)
                 {
                     currentState = AiState.MoveToTarget;
                 }
@@ -50,7 +50,7 @@ public class LogicComponent : CharacterComponent, ILogicComponent
         if (timeBetweenAttack <= 0)
         {
             Character.DamageComponent.DealDamage(target);
-            timeBetweenAttack = Character.data.TimeBetweenAttacks;
+            timeBetweenAttack = Character.Data.TimeBetweenAttacks;
         }
         else {
             timeBetweenAttack -= Time.deltaTime;

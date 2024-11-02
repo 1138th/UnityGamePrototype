@@ -10,7 +10,7 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
         private set
         {
             currentHealth = value;
-            if (currentHealth > Character.data.MaxHealth) currentHealth = Character.data.MaxHealth;
+            if (currentHealth > Character.Data.MaxHealth) currentHealth = Character.Data.MaxHealth;
             if (!(currentHealth <= 0)) return;
             currentHealth = 0;
             ExecuteDeath();
@@ -20,13 +20,16 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
     public new void Initialize(Character character)
     {
         base.Initialize(character);
-        CurrentHealth = Character.data.MaxHealth;
+        
+        CurrentHealth = character.Data.MaxHealth;
+        Character.Data.HealthBar.maxValue = Character.Data.MaxHealth;
+        Character.Data.HealthBar.value = Character.Data.MaxHealth;
     }
 
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        Debug.Log("Took damage: " + damage);
+        Character.Data.HealthBar.value = CurrentHealth;
     }
 
     public void ExecuteDeath()

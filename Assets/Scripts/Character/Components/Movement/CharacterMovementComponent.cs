@@ -3,7 +3,7 @@ using UnityEngine;
 public class CharacterMovementComponent : CharacterComponent, IMovable
 {
     private float speed;
-    private Camera camera;
+    private Camera cam;
 
     public float Speed
     {
@@ -19,8 +19,8 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
     public new void Initialize(Character character)
     {
         base.Initialize(character);
-        speed = Character.data.DefaultSpeed;
-        camera = Camera.main;
+        speed = Character.Data.DefaultSpeed;
+        cam = Camera.main;
     }
 
     public void Move(Vector3 direction)
@@ -29,7 +29,7 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
 
         var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         var move = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-        Character.data.CharacterController.Move(move * speed * Time.deltaTime);
+        Character.Data.CharacterController.Move(move * speed * Time.deltaTime);
     }
 
     public void LookAt(Character target)
@@ -39,7 +39,7 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
 
     public void LookAt(Vector3 target)
     {
-        var cameraRay = camera.ScreenPointToRay(target);
+        var cameraRay = cam.ScreenPointToRay(target);
         var groundPlane = new Plane(Vector3.up, Vector3.zero);
         if (groundPlane.Raycast(cameraRay, out var rayLength))
         {

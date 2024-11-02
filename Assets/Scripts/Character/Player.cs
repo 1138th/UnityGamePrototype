@@ -10,6 +10,6 @@ public class Player : Character
 
     public override void Update()
     {
-        MovementLogicComponent.ManualMove();
+        LogicComponent.ManualMove();
     }
 }

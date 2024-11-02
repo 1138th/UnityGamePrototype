@@ -1,4 +1,4 @@
-public class CharacterComponent : ICharacterComponent
+using UnityEngine;public class CharacterComponent : ICharacterComponent
 {
     public Character Character { get; protected set; }
 

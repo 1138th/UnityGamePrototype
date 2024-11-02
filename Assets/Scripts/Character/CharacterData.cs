@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterData : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class CharacterData : MonoBehaviour
     [SerializeField] private float timeBetweenAttacks;
     [SerializeField] private Transform characterTransform;
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private Slider healthBar;
 
     public float MaxHealth => maxHealth;
     public float DefaultSpeed => speed;
@@ -17,4 +19,5 @@ public class CharacterData : MonoBehaviour
     public float AttackRange => attackRange;
     public Transform CharacterTransform => characterTransform;
     public CharacterController CharacterController => characterController;
+    public Slider HealthBar => healthBar;
 }
