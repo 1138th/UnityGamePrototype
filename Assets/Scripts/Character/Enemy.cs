@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    [SerializeField] private Character targetCharacter;
     [SerializeField] private AiState currentState;
 
-    public override void Start()
-    {
-        base.Start();
+    public override Character Target => GameManager.Instance.CharacterFactory.Player;
 
-        HealthComponent = new ImmortalComponent();
+    public override void Init()
+    {
+        base.Init();
+
+        HealthComponent = new CharacterHealthComponent();
         DamageComponent = new CharacterDamageComponent();
 
         HealthComponent.Initialize(this);
@@ -18,6 +19,6 @@ public class Enemy : Character
 
     public override void Update()
     {
-        LogicComponent.AutoMove(targetCharacter, ref currentState);
+        LogicComponent.AutoMove(Target, ref currentState);
     }
 }

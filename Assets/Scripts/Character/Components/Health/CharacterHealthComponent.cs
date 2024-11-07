@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class CharacterHealthComponent : CharacterComponent, IHealthComponent
 {
     private float currentHealth;
 
+    public event Action<Character> OnDeath; 
     public float CurrentHealth
     {
         get => currentHealth;
@@ -22,18 +24,17 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
         base.Initialize(character);
         
         CurrentHealth = character.Data.MaxHealth;
-        Character.Data.HealthBar.maxValue = Character.Data.MaxHealth;
-        Character.Data.HealthBar.value = Character.Data.MaxHealth;
     }
 
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        Character.Data.HealthBar.value = CurrentHealth;
+        if (Character.Data.HealthBar) Character.Data.HealthBar.value = CurrentHealth;
     }
 
     public void ExecuteDeath()
     {
+        OnDeath?.Invoke(Character);
         Debug.Log("Character died.");
     }
 }

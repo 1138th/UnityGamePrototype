@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [SerializeField] public Character target;
+    private Character target;
 
-    void Update () {
-        transform.position = target.transform.position + new Vector3(5, 20, -20);
+    public void Update()
+    {
+        if (target != null) transform.position = target.transform.position + new Vector3(5, 20, -20);
+        else
+        {
+            target = GameManager.Instance.CharacterFactory.ActiveCharacters.Find(character => character.Type == CharacterType.Player);
+        }
     }
 }
