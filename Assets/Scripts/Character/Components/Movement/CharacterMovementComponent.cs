@@ -3,6 +3,7 @@ using UnityEngine;
 public class CharacterMovementComponent : CharacterComponent, IMovable
 {
     private float speed;
+    private Camera cam;
 
     public float Speed
     {
@@ -18,7 +19,8 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
     public new void Initialize(Character character)
     {
         base.Initialize(character);
-        speed = Character.data.DefaultSpeed;
+        speed = Character.Data.DefaultSpeed;
+        cam = Camera.main;
     }
 
     public void Move(Vector3 direction)
@@ -27,15 +29,24 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
 
         var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         var move = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-        Character.data.CharacterController.Move(move * speed * Time.deltaTime);
+        Character.Data.CharacterController.Move(move * speed * Time.deltaTime);
     }
 
-    public void Rotate(Vector3 direction)
+    public void LookAt(Character target)
     {
-        if (direction == Vector3.zero) return;
+        Character.transform.LookAt(target.transform.position);
+    }
 
-        var rotationSmoothness = 0.1f;
-        var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        var angle = Mathf.SmoothDampAngle(Character.data.CharacterTransform.eulerAngles.y, targetAngle, ref rotationSmoothness, rotationSmoothness);
+    public void LookAt(Vector3 target)
+    {
+        var cameraRay = cam.ScreenPointToRay(target);
+        var groundPlane = new Plane(Vector3.up, Vector3.zero);
+        if (groundPlane.Raycast(cameraRay, out var rayLength))
+        {
+            var point = cameraRay.GetPoint(rayLength);
+            Debug.DrawLine(cameraRay.origin, point, Color.red);
+
+            Character.transform.LookAt(new Vector3(point.x, Character.transform.position.y, point.z));
+        }
     }
 }

@@ -2,22 +2,27 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] public CharacterData data { get; private set; }
+    [SerializeField] private CharacterType type;
+
+    public virtual Character Target { get; }
+    public CharacterData Data { get; private set; }
+    public CharacterType Type => type;
+    public WeaponData WeaponData { get; private set; }
 
     public IMovable MovableComponent { get; protected set; }
-    public ILogicComponent MovementLogicComponent { get; protected set; }
+    public ILogicComponent LogicComponent { get; protected set; }
     public IHealthComponent HealthComponent { get; protected set; }
     public IDamageComponent DamageComponent { get; protected set; }
 
-    public virtual void Start()
+    public virtual void Init()
     {
-        data = GetComponent<CharacterData>();
+        Data = GetComponent<CharacterData>();
 
         MovableComponent = new CharacterMovementComponent();
-        MovementLogicComponent = new MovementLogicComponent();
+        LogicComponent = new LogicComponent();
 
         MovableComponent.Initialize(this);
-        MovementLogicComponent.Initialize(this);
+        LogicComponent.Initialize(this);
     }
 
     public abstract void Update();

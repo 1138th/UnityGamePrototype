@@ -1,16 +1,18 @@
+using System;
 using UnityEngine;
 
 public class CharacterHealthComponent : CharacterComponent, IHealthComponent
 {
     private float currentHealth;
 
+    public event Action<Character> OnDeath; 
     public float CurrentHealth
     {
         get => currentHealth;
         private set
         {
             currentHealth = value;
-            if (currentHealth > Character.data.MaxHealth) currentHealth = Character.data.MaxHealth;
+            if (currentHealth > Character.Data.MaxHealth) currentHealth = Character.Data.MaxHealth;
             if (!(currentHealth <= 0)) return;
             currentHealth = 0;
             ExecuteDeath();
@@ -20,17 +22,19 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
     public new void Initialize(Character character)
     {
         base.Initialize(character);
-        CurrentHealth = Character.data.MaxHealth;
+        
+        CurrentHealth = character.Data.MaxHealth;
     }
 
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        Debug.Log("Took damage: " + damage);
+        if (Character.Data.HealthBar) Character.Data.HealthBar.value = CurrentHealth;
     }
 
     public void ExecuteDeath()
     {
+        OnDeath?.Invoke(Character);
         Debug.Log("Character died.");
     }
 }
