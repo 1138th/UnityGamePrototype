@@ -2,21 +2,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameData gameData;
-    [SerializeField] private CharacterFactory characterFactory;
-
     public static GameManager Instance { get; private set; }
 
-    public CharacterFactory CharacterFactory => characterFactory;
+    [SerializeField] private GameData gameData;
+    [SerializeField] private CharacterFactory characterFactory;
+    [SerializeField] private CharacterSpawnController spawnController;
+    [SerializeField] private ScoreSystem scoreSystem;
 
-    private ScoreSystem scoreSystem;
     private bool isGameActive;
     private float gameSessionTime;
-    private float timeBetweenEnemySpawns;
+    
+    public CharacterFactory CharacterFactory => characterFactory;
+    public float SessionTime => gameSessionTime;
 
     private void Init()
     {
-        scoreSystem = new ScoreSystem();
+        spawnController.Init();
         isGameActive = false;
     }
 
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour
             return;
         isGameActive = true;
         gameSessionTime = 0;
-        timeBetweenEnemySpawns = gameData.TimeBetweenEnemySpawn;
         
         scoreSystem.StartGame();
         
@@ -56,37 +56,16 @@ public class GameManager : MonoBehaviour
         if (!isGameActive) return;
         
         gameSessionTime += Time.deltaTime;
-        timeBetweenEnemySpawns -= Time.deltaTime;
 
-        if (timeBetweenEnemySpawns <= 0)
-        {
-            SpawnEnemies();
-            timeBetweenEnemySpawns = gameData.TimeBetweenEnemySpawn;
-        }
+        spawnController.ExecuteSpawnEnemiesLogic();
+        
         if (gameSessionTime >= gameData.SessionTimeSeconds)
         {
             GameVictory();
         } 
     }
 
-    private void SpawnEnemies()
-    {
-        Character enemy = characterFactory.GetCharacter(CharacterType.DefaultEnemy);
-        Vector3 playerPosition = characterFactory.Player.transform.position;
-        enemy.transform.position = new Vector3(playerPosition.x + GetOffset(), 0, playerPosition.z + GetOffset());
-        enemy.gameObject.SetActive(true);
-        enemy.Init();
-        enemy.HealthComponent.OnDeath += CharacterDeathHandler;
-        
-        float GetOffset()
-        {
-            bool isPositive = Random.Range(0, 100) % 2 == 0;
-            float offset = Random.Range(gameData.MinSpawnOffset, gameData.MaxSpawnOffset);
-            return isPositive ? offset : -offset;
-        }
-    }
-
-    private void CharacterDeathHandler(Character deadCharacter)
+    public void CharacterDeathHandler(Character deadCharacter)
     {
         switch (deadCharacter.Type)
         {
