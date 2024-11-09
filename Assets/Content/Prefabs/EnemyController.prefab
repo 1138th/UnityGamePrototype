@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
-  speed: 3
+  speed: 4
   damage: 10
   attackRange: 2
   timeBetweenAttacks: 1
