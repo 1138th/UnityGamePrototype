@@ -20,7 +20,7 @@ public class LogicComponent : CharacterComponent, ILogicComponent
             if (Input.GetButtonDown("Jump")) Character.DamageComponent.DealDamage(target);
         }
         
-        Character.MovableComponent.Move(movementVector);
+        Character.MovableComponent.PlayerMove(movementVector);
         // Character.MovableComponent.LookAt(Input.mousePosition);
     }
     
@@ -36,10 +36,7 @@ public class LogicComponent : CharacterComponent, ILogicComponent
         switch (currentState)
         {
             case AiState.MoveToTarget:
-                var direction = (target.transform.position - Character.transform.position).normalized;
-
-                Character.MovableComponent.Move(direction);
-                Character.MovableComponent.LookAt(target);
+                Character.MovableComponent.EnemyMove(target);
 
                 if (distanceToTarget < Character.Data.AttackRange)
                 {

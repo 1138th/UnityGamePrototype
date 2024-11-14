@@ -35,6 +35,5 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
     public void ExecuteDeath()
     {
         OnDeath?.Invoke(Character);
-        Debug.Log("Character died.");
     }
 }
