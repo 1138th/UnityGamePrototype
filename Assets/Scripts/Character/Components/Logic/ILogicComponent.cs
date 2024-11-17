@@ -1,6 +1,6 @@
 public interface ILogicComponent : ICharacterComponent
 {
-    public void ManualMove(Character target);
+    public void PlayerMove(Character target);
 
-    public void AutoMove(Character target, ref AiState state);
+    public void EnemyMove(Character target, ref AiState state);
 }

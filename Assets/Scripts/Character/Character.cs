@@ -7,7 +7,6 @@ public abstract class Character : MonoBehaviour
     public virtual Character Target { get; }
     public CharacterData Data { get; private set; }
     public CharacterType Type => type;
-    public WeaponData WeaponData { get; private set; }
 
     public IMovable MovableComponent { get; protected set; }
     public ILogicComponent LogicComponent { get; protected set; }

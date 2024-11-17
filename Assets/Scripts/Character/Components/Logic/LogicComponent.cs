@@ -4,32 +4,38 @@ using UnityEngine;
 public class LogicComponent : CharacterComponent, ILogicComponent
 {
     private float timeBetweenAttack;
+    private bool isAimManual = false;
 
-    public void ManualMove(Character target)
+    public void PlayerMove(Character target)
     {
         var moveHorizontal = Input.GetAxis("Horizontal");
         var moveVertical = Input.GetAxis("Vertical");
 
         var movementVector = new Vector3(moveHorizontal, 0, moveVertical).normalized;
 
-        // TODO: NEED to refactor/optimize that. DO NOT delete commented line
-        if (target != null)
+        if (Input.GetButtonDown("Jump"))
         {
-            Character.MovableComponent.LookAt(target);
+            isAimManual = !isAimManual;
+        }
+        if (isAimManual)
+        {
+            Character.MovableComponent.LookAt(Input.mousePosition);
+            GameManager.Instance.ShootingController.ShootBullet();
+        }
+        else
+        {
+            if (target != null)
+            {
+                Character.MovableComponent.LookAt(target);
             
-            if (Input.GetButtonDown("Jump")) Character.DamageComponent.DealDamage(target);
+                GameManager.Instance.ShootingController.ShootBullet();
+            }
         }
         
         Character.MovableComponent.PlayerMove(movementVector);
-        // Character.MovableComponent.LookAt(Input.mousePosition);
     }
     
-    // TODO: For attacking using mouse as aim
-    public void ManualAttack()
-    {
-    }
-    
-    public void AutoMove(Character target, ref AiState currentState)
+    public void EnemyMove(Character target, ref AiState currentState)
     {
         var distanceToTarget = Vector3.Distance(target.transform.position, Character.transform.position);
 

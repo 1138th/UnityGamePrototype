@@ -53,7 +53,6 @@ public class CharacterSpawnController : MonoBehaviour
             enemy.Init();
             enemy.HealthComponent.OnDeath += GameManager.Instance.CharacterDeathHandler;
         }
-        Debug.Log("Spawned enemies: " + enemiesToSpawn);
     }
 
     private float GetOffset()

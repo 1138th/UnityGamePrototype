@@ -36,8 +36,9 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
 
     public void EnemyMove(Character target)
     {
+        var controller = Character.Data.CharacterController;
         LookAt(target);
-        Character.transform.position += Character.transform.forward * (speed * Time.deltaTime);
+        controller.Move(controller.transform.TransformDirection(Vector3.forward) * (speed * Time.deltaTime));
     }
 
     public void LookAt(Character target)
@@ -47,11 +48,11 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
 
     public void LookAt(Vector3 target)
     {
-        var cameraRay = cam.ScreenPointToRay(target);
-        var groundPlane = new Plane(Vector3.up, Vector3.zero);
+        Ray cameraRay = cam.ScreenPointToRay(target);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         if (groundPlane.Raycast(cameraRay, out var rayLength))
         {
-            var point = cameraRay.GetPoint(rayLength);
+            Vector3 point = cameraRay.GetPoint(rayLength);
             Debug.DrawLine(cameraRay.origin, point, Color.red);
 
             Character.transform.LookAt(new Vector3(point.x, Character.transform.position.y, point.z));

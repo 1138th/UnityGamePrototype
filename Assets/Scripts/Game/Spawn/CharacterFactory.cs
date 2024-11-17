@@ -40,6 +40,7 @@ public class CharacterFactory : MonoBehaviour
 
     public void ReturnCharacter(Character character)
     {
+        character.gameObject.SetActive(false);
         Queue<Character> characters = disabledCharacters[character.Type];
         characters.Enqueue(character);
         

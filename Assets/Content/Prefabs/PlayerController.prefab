@@ -113,7 +113,6 @@ GameObject:
   - component: {fileID: 85244282989883891}
   - component: {fileID: 6607601312363385448}
   - component: {fileID: 7441061877175677544}
-  - component: {fileID: 1760031590481982047}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -186,27 +185,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1760031590481982047
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3640564932244103605}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3960304194043394280
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +465,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5488788812021480839}
-  - component: {fileID: 8806975760387428207}
   m_Layer: 0
   m_Name: WeaponController
   m_TagString: Untagged
@@ -504,32 +481,13 @@ Transform:
   m_GameObject: {fileID: 7506699205359229688}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.518, y: 0.33, z: -0.491}
+  m_LocalPosition: {x: 0.518, y: 1.208, z: -0.491}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7638744439111441024}
   m_Father: {fileID: 9003839352516453057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8806975760387428207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7506699205359229688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9795a9c4825469ca36f5ed427ef2ff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 3
-  attackSpeed: 1.2
-  reloadTime: 1.5
-  attackRange: 0
-  projectilesCount: 1
-  ammoCount: 30
-  penetrationPower: 0
 --- !u!1 &8870723204405552246
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   speed: 10
-  damage: 10
+  damage: 5
   attackRange: 5
   timeBetweenAttacks: 1
   scoreValue: 0

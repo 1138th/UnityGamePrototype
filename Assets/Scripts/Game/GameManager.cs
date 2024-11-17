@@ -6,18 +6,22 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameData gameData;
     [SerializeField] private CharacterFactory characterFactory;
+    [SerializeField] private BulletFactory bulletFactory;
     [SerializeField] private CharacterSpawnController spawnController;
+    [SerializeField] private ShootingController shootingController;
     [SerializeField] private ScoreSystem scoreSystem;
 
     private bool isGameActive;
     private float gameSessionTime;
-    
+
     public CharacterFactory CharacterFactory => characterFactory;
+    public ShootingController ShootingController => shootingController;
     public float SessionTime => gameSessionTime;
 
     private void Init()
     {
         spawnController.Init();
+        shootingController.Init();
         isGameActive = false;
     }
 
@@ -41,9 +45,9 @@ public class GameManager : MonoBehaviour
             return;
         isGameActive = true;
         gameSessionTime = 0;
-        
+
         scoreSystem.StartGame();
-        
+
         Character player = characterFactory.GetCharacter(CharacterType.Player);
         player.transform.position = Vector3.zero;
         player.gameObject.SetActive(true);
@@ -54,15 +58,15 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (!isGameActive) return;
-        
+
         gameSessionTime += Time.deltaTime;
 
         spawnController.ExecuteSpawnEnemiesLogic();
-        
+
         if (gameSessionTime >= gameData.SessionTimeSeconds)
         {
-            GameVictory();
-        } 
+            GameOver("Victory!");
+        }
     }
 
     public void CharacterDeathHandler(Character deadCharacter)
@@ -70,30 +74,30 @@ public class GameManager : MonoBehaviour
         switch (deadCharacter.Type)
         {
             case CharacterType.Player:
-                GameOver();
+                GameOver("Game Over!");
                 break;
             case CharacterType.DefaultEnemy:
                 scoreSystem.AddScore(deadCharacter.Data.ScoreValue);
                 break;
         }
-        
-        deadCharacter.gameObject.SetActive(false);
+
         characterFactory.ReturnCharacter(deadCharacter);
-        
+
         deadCharacter.HealthComponent.OnDeath -= CharacterDeathHandler;
     }
 
-    private void GameOver()
+    private void GameOver(string message)
     {
-        Debug.Log("Game Over!");
+        Debug.Log(message);
         scoreSystem.EndGame();
         isGameActive = false;
-    }
-    
-    private void GameVictory()
-    {
-        Debug.Log("Victory!");
-        scoreSystem.EndGame();
-        isGameActive = false;
+        
+        characterFactory.ActiveCharacters.ForEach(character =>
+        {
+            if (character.Type == CharacterType.Player) return;
+            character.gameObject.SetActive(false);
+            Destroy(character.gameObject);
+        });
+        characterFactory.ActiveCharacters.RemoveAll(character => character.Type != CharacterType.Player);
     }
 }

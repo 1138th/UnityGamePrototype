@@ -41,6 +41,6 @@ public class Player : Character
 
     public override void Update()
     {
-        LogicComponent.ManualMove(Target);
+        LogicComponent.PlayerMove(Target);
     }
 }
