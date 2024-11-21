@@ -5,31 +5,47 @@ public class ShootingController : MonoBehaviour
     [SerializeField] private BulletFactory bulletFactory;
 
     private float spawnsDeltaTime;
-    private int spawnsExecuted;
+    private float reloadDeltaTime;
+    public int BulletsShot { get; private set; }
 
     public void Init()
     {
         spawnsDeltaTime = WeaponData.AttackSpeed;
+        reloadDeltaTime = WeaponData.ReloadTime;
     }
 
-    public void ShootBullet()
+    public void ShootBullets()
     {
         spawnsDeltaTime -= Time.deltaTime;
 
-        if (spawnsDeltaTime <= 0)
+        if (BulletsShot >= WeaponData.AmmoCount)
         {
-            Bullet bullet = bulletFactory.GetBullet();
-            bullet.gameObject.SetActive(true);
-            bullet.OnHit += BulletHitHandler;
+            Debug.Log("Reloading. . .");
+            reloadDeltaTime -= Time.deltaTime;
+            if (reloadDeltaTime <= 0)
+            {
+                BulletsShot = 0;
+                reloadDeltaTime = WeaponData.ReloadTime;
+            }
+        }
+        else
+        {
+            if (spawnsDeltaTime <= 0)
+            {
+                Bullet bullet = bulletFactory.GetBullet();
+                bullet.gameObject.SetActive(true);
+                bullet.OnHit += BulletHitHandler;
+                BulletsShot++;
 
-            spawnsDeltaTime = WeaponData.AttackSpeed;
+                spawnsDeltaTime = WeaponData.AttackSpeed;
+            }
         }
     }
 
     public void BulletHitHandler(Bullet bullet)
     {
         bulletFactory.ReturnBullet(bullet);
-        
+
         bullet.OnHit -= BulletHitHandler;
     }
 }

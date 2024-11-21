@@ -20,7 +20,7 @@ public class LogicComponent : CharacterComponent, ILogicComponent
         if (isAimManual)
         {
             Character.MovableComponent.LookAt(Input.mousePosition);
-            GameManager.Instance.ShootingController.ShootBullet();
+            GameManager.Instance.ShootingController.ShootBullets();
         }
         else
         {
@@ -28,7 +28,7 @@ public class LogicComponent : CharacterComponent, ILogicComponent
             {
                 Character.MovableComponent.LookAt(target);
             
-                GameManager.Instance.ShootingController.ShootBullet();
+                GameManager.Instance.ShootingController.ShootBullets();
             }
         }
         

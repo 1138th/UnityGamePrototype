@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (isGameActive)
-            return;
+        if (isGameActive) return;
         isGameActive = true;
         gameSessionTime = 0;
 
