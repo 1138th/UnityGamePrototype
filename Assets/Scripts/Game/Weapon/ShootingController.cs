@@ -6,10 +6,13 @@ public class ShootingController : MonoBehaviour
 
     private float spawnsDeltaTime;
     private float reloadDeltaTime;
+
+    public WeaponData WeaponData { get; private set; }
     public int BulletsShot { get; private set; }
 
     public void Init()
     {
+        WeaponData = MetaManager.Instance.WeaponData;
         spawnsDeltaTime = WeaponData.AttackSpeed;
         reloadDeltaTime = WeaponData.ReloadTime;
     }
@@ -32,9 +35,12 @@ public class ShootingController : MonoBehaviour
         {
             if (spawnsDeltaTime <= 0)
             {
-                Bullet bullet = bulletFactory.GetBullet();
-                bullet.gameObject.SetActive(true);
-                bullet.OnHit += BulletHitHandler;
+                Bullet[] bullets = bulletFactory.GetBullets();
+                foreach (var bullet in bullets)
+                {
+                    bullet.gameObject.SetActive(true);
+                    bullet.OnHit += BulletHitHandler;
+                }
                 BulletsShot++;
 
                 spawnsDeltaTime = WeaponData.AttackSpeed;

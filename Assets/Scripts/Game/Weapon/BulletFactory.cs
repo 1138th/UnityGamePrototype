@@ -8,30 +8,39 @@ public class BulletFactory : MonoBehaviour
     private List<Bullet> activeBullets = new List<Bullet>();
     private Queue<Bullet> disabledBullets = new Queue<Bullet>();
 
-    public List<Bullet> ActiveBullets => activeBullets;
+    private int projectilesCount = 1;
 
-    public Bullet GetBullet()
+    private void Start()
     {
-        Bullet bullet = null;
-        Character player = GameManager.Instance.CharacterFactory.Player;
+        projectilesCount = MetaManager.Instance.WeaponData.ProjectilesCount;
+    }
 
-        if (disabledBullets.Count > 0)
+    public Bullet[] GetBullets()
+    {
+        Bullet[] bullets = new Bullet[projectilesCount];
+
+        for (int i = 0; i < projectilesCount; i++)
         {
-            bullet = disabledBullets.Dequeue();
-            bullet.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 1,
-                player.transform.position.z);
-            bullet.transform.rotation = player.transform.rotation;
+            Character player = GameManager.Instance.CharacterFactory.Player;
+
+            if (disabledBullets.Count > 0)
+            {
+                bullets[i] = disabledBullets.Dequeue();
+                bullets[i].transform.position = GetBulletPosition(player);
+                bullets[i].transform.rotation = player.transform.rotation;
+                SetBulletSpread(ref bullets[i]);
+            }
+
+            if (bullets[i] == null)
+            {
+                bullets[i] = Instantiate(bulletPrefab, GetBulletPosition(player), player.transform.rotation);
+                SetBulletSpread(ref bullets[i]);
+            }
+
+            activeBullets.Add(bullets[i]);
         }
 
-        if (bullet == null)
-        {
-            bullet = Instantiate(bulletPrefab,
-                new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z),
-                player.transform.rotation);
-        }
-
-        activeBullets.Add(bullet);
-        return bullet;
+        return bullets;
     }
 
     public void ReturnBullet(Bullet bullet)
@@ -41,5 +50,18 @@ public class BulletFactory : MonoBehaviour
         bullets.Enqueue(bullet);
 
         activeBullets.Remove(bullet);
+    }
+
+    private Vector3 GetBulletPosition(Character player)
+    {
+        return new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
+    }
+
+    private void SetBulletSpread(ref Bullet bullet)
+    {
+        bullet.transform.Rotate(
+            0,
+            Random.Range(-projectilesCount, projectilesCount),
+            Random.Range(-projectilesCount, projectilesCount));
     }
 }

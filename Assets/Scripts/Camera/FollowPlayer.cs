@@ -6,7 +6,7 @@ public class FollowPlayer : MonoBehaviour
 
     public void Update()
     {
-        if (target != null) transform.position = target.transform.position + new Vector3(5, 20, -20);
+        if (target != null) transform.position = target.transform.position + new Vector3(5.5f, 28, -17);
         else
         {
             target = GameManager.Instance.CharacterFactory.ActiveCharacters.Find(character => character.Type == CharacterType.Player);

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void Start()
     {
         if (isGameActive) return;
         isGameActive = true;

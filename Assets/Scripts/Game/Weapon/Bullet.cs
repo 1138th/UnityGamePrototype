@@ -7,20 +7,23 @@ public class Bullet : MonoBehaviour
 
     public event Action<Bullet> OnHit;
 
-    private const float Speed = 100f;
+    private const float Speed = 100;
     private Character player;
+    private float range;
 
     public void Start()
     {
         player = GameManager.Instance.CharacterFactory.Player;
         Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>());
+
+        range = MetaManager.Instance.WeaponData.AttackRange;
     }
 
     public void Update()
     {
         controller.Move(transform.forward * (Speed * Time.deltaTime));
 
-        if (Vector3.Distance(transform.position, player.transform.position) > 50)
+        if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
             OnHit?.Invoke(this);
         }
@@ -31,7 +34,7 @@ public class Bullet : MonoBehaviour
         if (hit.collider.gameObject.CompareTag("Enemy"))
         {
             player.DamageComponent.DealDamage(hit.collider.gameObject.GetComponent<Enemy>());
+            OnHit?.Invoke(this);
         }
-        OnHit?.Invoke(this);
     }
 }

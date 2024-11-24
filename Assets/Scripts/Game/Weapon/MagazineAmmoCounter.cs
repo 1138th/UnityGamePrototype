@@ -8,7 +8,7 @@ public class MagazineAmmoCounter : MonoBehaviour
 
     public void Update()
     {
-        int bulletsRemain = WeaponData.AmmoCount - shootingController.BulletsShot;
-        currentMagazineAmmoAmount.text = $"{bulletsRemain} / {WeaponData.AmmoCount}";
+        int bulletsRemain = shootingController.WeaponData.AmmoCount - shootingController.BulletsShot;
+        currentMagazineAmmoAmount.text = $"{bulletsRemain} / {shootingController.WeaponData.AmmoCount}";
     }
 }

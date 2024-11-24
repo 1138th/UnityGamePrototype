@@ -1,3 +1,4 @@
+/*
 using System;
 using UnityEngine;
 
@@ -12,3 +13,4 @@ public class ImmortalComponent : CharacterComponent, IHealthComponent
         Debug.Log("Character is immortal.");
     }
 }
+*/

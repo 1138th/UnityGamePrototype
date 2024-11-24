@@ -65,7 +65,7 @@ public class LogicComponent : CharacterComponent, ILogicComponent
     {
         if (timeBetweenAttack <= 0)
         {
-            Character.DamageComponent.DealDamage(target);
+            Character.DamageComponent.DealDamageToPlayer(target);
             timeBetweenAttack = Character.Data.TimeBetweenAttacks;
         }
         else {
