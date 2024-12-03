@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2609131762759000589}
   - component: {fileID: 2402911349246001321}
   - component: {fileID: 1861865297708242338}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 8593572186879901241}
   - component: {fileID: 1610007042932812730}
   - component: {fileID: 8412743215511355190}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HP Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8430056426923717471}
   - component: {fileID: 2319369928783946929}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HP Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 8902891835877742936}
   - component: {fileID: 2670888930169285716}
   - component: {fileID: 3258738902126410786}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HP Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}

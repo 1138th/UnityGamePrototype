@@ -56,6 +56,11 @@ public class WeaponDataDisplay : MonoBehaviour
 
     public void ClickPrevWeapon()
     {
+        if (currentWeapon == 0)
+        {
+            currentWeapon = weaponsList.Count;
+        }
+        weaponData = weaponsList[--currentWeapon];
     }
 
     public void SaveWeaponData()

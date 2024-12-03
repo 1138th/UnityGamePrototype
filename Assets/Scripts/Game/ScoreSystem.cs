@@ -18,7 +18,7 @@ public class ScoreSystem : MonoBehaviour
 
     public void Update()
     {
-        scoreText.text = $"{Score:d11}";
+        scoreText.text = $"{Score}";
     }
 
     public void AddScore(int earnedScore)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,19 +11,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CharacterSpawnController spawnController;
     [SerializeField] private ShootingController shootingController;
     [SerializeField] private ScoreSystem scoreSystem;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject gameOverMenu;
 
     private bool isGameActive;
+    private bool isGamePaused;
     private float gameSessionTime;
+    private int enemiesKilled;
 
     public CharacterFactory CharacterFactory => characterFactory;
     public ShootingController ShootingController => shootingController;
     public float SessionTime => gameSessionTime;
+    public int EnemiesKilled => enemiesKilled;
+    public bool IsGameActive => isGameActive;
 
     private void Init()
     {
         spawnController.Init();
         shootingController.Init();
         isGameActive = false;
+        isGamePaused = false;
     }
 
     private void Awake()
@@ -30,7 +38,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             Init();
         }
         else
@@ -44,6 +51,7 @@ public class GameManager : MonoBehaviour
         if (isGameActive) return;
         isGameActive = true;
         gameSessionTime = 0;
+        enemiesKilled = 0;
 
         scoreSystem.StartGame();
 
@@ -52,6 +60,28 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
         player.Init();
         player.HealthComponent.OnDeath += CharacterDeathHandler;
+    }
+
+    public void Restart()
+    {
+        gameOverMenu.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseGame()
+    {
+        if (isGamePaused)
+        {
+            isGamePaused = false;
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
+        else
+        {
+            isGamePaused = true;
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
     }
 
     private void Update()
@@ -77,6 +107,7 @@ public class GameManager : MonoBehaviour
                 break;
             case CharacterType.DefaultEnemy:
                 scoreSystem.AddScore(deadCharacter.Data.ScoreValue);
+                enemiesKilled++;
                 break;
         }
 
@@ -98,5 +129,12 @@ public class GameManager : MonoBehaviour
             Destroy(character.gameObject);
         });
         characterFactory.ActiveCharacters.RemoveAll(character => character.Type != CharacterType.Player);
+        gameOverMenu.SetActive(true);
+    }
+
+    public void EndGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
