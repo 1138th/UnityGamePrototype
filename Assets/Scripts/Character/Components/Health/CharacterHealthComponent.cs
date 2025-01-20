@@ -4,15 +4,19 @@ using UnityEngine;
 public class CharacterHealthComponent : CharacterComponent, IHealthComponent
 {
     private float currentHealth;
+    private float maxHealth;
+    private float hpRegen;
+    private float hpRegenDeltaTime;
 
-    public event Action<Character> OnDeath; 
+    public event Action<Character> OnDeath;
+
     public float CurrentHealth
     {
         get => currentHealth;
         private set
         {
             currentHealth = value;
-            if (currentHealth > Character.Data.MaxHealth) currentHealth = Character.Data.MaxHealth;
+            if (currentHealth > maxHealth) currentHealth = maxHealth;
             if (!(currentHealth <= 0)) return;
             currentHealth = 0;
             ExecuteDeath();
@@ -22,14 +26,45 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
     public new void Initialize(Character character)
     {
         base.Initialize(character);
-        
-        CurrentHealth = character.Data.MaxHealth;
+
+        hpRegenDeltaTime = 1; //1 Second
+        maxHealth = character.Data.MaxHealth;
+        currentHealth = maxHealth;
+    }
+
+    public void RegenerateHealth()
+    {
+        Character.Data.HealthBar.value = currentHealth;
+
+        if (currentHealth < maxHealth && hpRegen > 0)
+        {
+            hpRegenDeltaTime -= Time.deltaTime;
+            if (hpRegenDeltaTime <= 0)
+            {
+                currentHealth += hpRegen;
+                hpRegenDeltaTime = 1;
+            }
+        }
     }
 
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
         if (Character.Data.HealthBar) Character.Data.HealthBar.value = CurrentHealth;
+    }
+
+    public void IncreaseHealth(float amount)
+    {
+        maxHealth += amount;
+        currentHealth += amount;
+
+        Character.Data.HealthBar.maxValue = maxHealth;
+        Character.Data.HealthBar.value = currentHealth;
+    }
+
+    public void IncreaseHpRegen(float amount)
+    {
+        hpRegen += amount;
     }
 
     public void ExecuteDeath()

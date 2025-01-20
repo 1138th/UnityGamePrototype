@@ -25,13 +25,11 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
 
     public void PlayerMove(Vector3 direction)
     {
-        // TODO: simple alternative. Most likely will be used in the future, so PlayerMove and EnemyMove can be merged
-        // Character.transform.position += direction * speed * Time.deltaTime;
         if (direction == Vector3.zero) return;
 
         var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         var move = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-        Character.Data.CharacterController.Move(move * (speed * Time.deltaTime));
+        Character.Data.CharacterController.Move(move * (speed * UpgradesSystem.Instance.MoveSpeedAmp * Time.deltaTime));
     }
 
     public void EnemyMove(Character target)

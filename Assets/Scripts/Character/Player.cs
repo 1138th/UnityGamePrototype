@@ -41,5 +41,6 @@ public class Player : Character
     public override void Update()
     {
         LogicComponent.PlayerMove(Target);
+        HealthComponent.RegenerateHealth();
     }
 }

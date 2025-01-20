@@ -6,4 +6,10 @@ public interface IHealthComponent : ICharacterComponent
     public float CurrentHealth { get; }
 
     public void TakeDamage(float damage);
+
+    public void IncreaseHealth(float amount);
+
+    public void RegenerateHealth();
+
+    public void IncreaseHpRegen(float amount);
 }

@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
 
     public CharacterFactory CharacterFactory => characterFactory;
     public ShootingController ShootingController => shootingController;
-    public float SessionTime => gameSessionTime;
     public int EnemiesKilled => enemiesKilled;
     public bool IsGameActive => isGameActive;
 

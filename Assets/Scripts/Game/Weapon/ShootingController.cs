@@ -43,7 +43,7 @@ public class ShootingController : MonoBehaviour
                 }
                 BulletsShot++;
 
-                spawnsDeltaTime = WeaponData.AttackSpeed;
+                spawnsDeltaTime = WeaponData.AttackSpeed * UpgradesSystem.Instance.AttackSpeedAmp;
             }
         }
     }
