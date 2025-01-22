@@ -25,8 +25,8 @@ public class UpgradesSystem : MonoBehaviour
         "Attack Speed +5%",
         "Move Speed +10%",
         "HP +40",
-        "Armor +10",
-        "+2 HP/s",
+        "DMG Reduction +10%",
+        "+2 HP/s"
     };
 
     private List<string> icons = new()
@@ -42,7 +42,7 @@ public class UpgradesSystem : MonoBehaviour
 
     private List<string> uniqueUpgrades = new()
     {
-        "Get a drone",
+        "Get a drone that shoots enemies",
         "+ 1 turret for a drone",
         "Make bullets flammable"
     };

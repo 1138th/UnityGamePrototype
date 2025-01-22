@@ -14,7 +14,7 @@ public class WeaponDataDisplay : MonoBehaviour
     private Text attackSpeedText;
     private Text reloadTimeText;
     private Text penetrationPowerText;
-    private Image weaponSprite;
+    private Transform weaponModel;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class WeaponDataDisplay : MonoBehaviour
         attackSpeedText = numbersObject.transform.Find("AttackSpeed").GetComponent<Text>();
         reloadTimeText = numbersObject.transform.Find("ReloadTime").GetComponent<Text>();
         penetrationPowerText = numbersObject.transform.Find("PenetrationPower").GetComponent<Text>();
-        weaponSprite = transform.Find("WeaponSprite").GetComponent<Image>();
+        weaponModel = transform.Find("WeaponModel").gameObject.transform;
     }
 
     private void Update()
@@ -42,25 +42,31 @@ public class WeaponDataDisplay : MonoBehaviour
         attackSpeedText.text = weaponData.AttackSpeed.ToString();
         reloadTimeText.text = weaponData.ReloadTime.ToString();
         penetrationPowerText.text = weaponData.PenetrationPower.ToString();
-        weaponSprite.sprite = weaponData.WeaponSprite;
+        weaponModel.Rotate(0, 0, 100 * Time.deltaTime);
     }
 
     public void ClickNextWeapon()
     {
+        weaponModel.GetChild(currentWeapon).gameObject.SetActive(false);
         if (currentWeapon == weaponsList.Count - 1)
         {
             currentWeapon = -1;
         }
+
         weaponData = weaponsList[++currentWeapon];
+        weaponModel.GetChild(currentWeapon).gameObject.SetActive(true);
     }
 
     public void ClickPrevWeapon()
     {
+        weaponModel.GetChild(currentWeapon).gameObject.SetActive(false);
         if (currentWeapon == 0)
         {
             currentWeapon = weaponsList.Count;
         }
+
         weaponData = weaponsList[--currentWeapon];
+        weaponModel.GetChild(currentWeapon).gameObject.SetActive(true);
     }
 
     public void SaveWeaponData()

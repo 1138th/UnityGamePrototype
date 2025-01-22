@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-
-public abstract class WeaponData
+﻿public abstract class WeaponData
 {
     public int WeaponId { get; protected set; }
-    public Sprite WeaponSprite { get; protected set; }
+    public string WeaponModel { get; protected set; }
     public float Damage { get; protected set; }
     public float AttackSpeed { get; protected set; }
     public float ReloadTime { get; protected set; }

@@ -8,33 +8,24 @@ public class BulletFactory : MonoBehaviour
     private List<Bullet> activeBullets = new List<Bullet>();
     private Queue<Bullet> disabledBullets = new Queue<Bullet>();
 
-    private int projectilesCount = 1;
-
-    private void Start()
-    {
-        projectilesCount = MetaManager.Instance.WeaponData.ProjectilesCount;
-    }
-
-    public Bullet[] GetBullets()
+    public Bullet[] GetBullets(Character shooter, int projectilesCount)
     {
         Bullet[] bullets = new Bullet[projectilesCount];
 
         for (int i = 0; i < projectilesCount; i++)
         {
-            Character player = GameManager.Instance.CharacterFactory.Player;
-
             if (disabledBullets.Count > 0)
             {
                 bullets[i] = disabledBullets.Dequeue();
-                bullets[i].transform.position = GetBulletPosition(player);
-                bullets[i].transform.rotation = player.transform.rotation;
-                SetBulletSpread(ref bullets[i]);
+                bullets[i].transform.position = GetBulletPosition(shooter);
+                bullets[i].transform.rotation = shooter.transform.rotation;
+                SetBulletSpread(ref bullets[i], projectilesCount);
             }
 
             if (bullets[i] == null)
             {
-                bullets[i] = Instantiate(bulletPrefab, GetBulletPosition(player), player.transform.rotation);
-                SetBulletSpread(ref bullets[i]);
+                bullets[i] = Instantiate(bulletPrefab, GetBulletPosition(shooter), shooter.transform.rotation);
+                SetBulletSpread(ref bullets[i], projectilesCount);
             }
 
             activeBullets.Add(bullets[i]);
@@ -57,7 +48,7 @@ public class BulletFactory : MonoBehaviour
         return new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
     }
 
-    private void SetBulletSpread(ref Bullet bullet)
+    private void SetBulletSpread(ref Bullet bullet, int projectilesCount)
     {
         bullet.transform.Rotate(
             0,

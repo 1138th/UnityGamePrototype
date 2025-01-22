@@ -108,6 +108,10 @@ public class GameManager : MonoBehaviour
                 scoreSystem.AddScore(deadCharacter.Data.ScoreValue);
                 enemiesKilled++;
                 break;
+            case CharacterType.LongRangeSniperEnemy:
+                scoreSystem.AddScore(deadCharacter.Data.ScoreValue);
+                enemiesKilled++;
+                break;
         }
 
         characterFactory.ReturnCharacter(deadCharacter);

@@ -44,7 +44,10 @@ public class CharacterSpawnController : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Character enemy = characterFactory.GetCharacter(CharacterType.DefaultEnemy);
+            Character enemy;
+            if (Random.Range(0, 100) % 2 == 0) enemy = characterFactory.GetCharacter(CharacterType.DefaultEnemy);
+            else enemy = characterFactory.GetCharacter(CharacterType.LongRangeSniperEnemy);
+
             Vector3 playerPosition = characterFactory.Player.transform.position;
             enemy.transform.position = new Vector3(playerPosition.x + GetOffset(), 0, playerPosition.z + GetOffset());
             enemy.gameObject.SetActive(true);

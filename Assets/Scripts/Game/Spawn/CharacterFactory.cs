@@ -5,13 +5,15 @@ using UnityEngine;
 public class CharacterFactory : MonoBehaviour
 {
     [SerializeField] private Character playerPrefab;
-    [SerializeField] private Character enemyPrefab;
+    [SerializeField] private Character enemy1Prefab;
+    [SerializeField] private Character enemy2Prefab;
 
     private Dictionary<CharacterType, Queue<Character>> disabledCharacters = new Dictionary<CharacterType, Queue<Character>>();
     //TODO: GOOD optimization => implement array if i'll know the max amount of enemies on screen
     private List<Character> activeCharacters = new List<Character>();
     
     public Character Player { get; private set; }
+    public Character LongRangeSniperEnemy { get; private set; }
     public List<Character> ActiveCharacters => activeCharacters;
 
     public Character GetCharacter(CharacterType type)
@@ -55,9 +57,14 @@ public class CharacterFactory : MonoBehaviour
             case CharacterType.Player:
                 character = Instantiate(playerPrefab, null);
                 Player = character;
+                // Resources.Load<GameObject>("3DModel/AssaultRifle");
                 break;
             case CharacterType.DefaultEnemy:
-                character = Instantiate(enemyPrefab, null);
+                character = Instantiate(enemy1Prefab, null);
+                break;
+            case CharacterType.LongRangeSniperEnemy:
+                character = Instantiate(enemy2Prefab, null);
+                LongRangeSniperEnemy = character;
                 break;
             default:
                 throw new InvalidEnumArgumentException("Invalid character type: " + type);

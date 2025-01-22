@@ -1,12 +1,10 @@
-﻿using UnityEngine;
-
-public class AssaultRifleData : WeaponData
+﻿public class AssaultRifleData : WeaponData
 {
     // Base DPS: 150
     public AssaultRifleData()
     {
         WeaponId = 0;
-        WeaponSprite = Resources.Load<Sprite>("Sprites/Weapons/HK_416_Assault_Rifle");
+        WeaponModel = "AssaultRifle";
         Damage = 15;
         AttackSpeed = 0.1f;
         ReloadTime = 2;

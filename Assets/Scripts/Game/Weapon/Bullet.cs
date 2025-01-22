@@ -4,11 +4,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Character host;
+    [SerializeField] private float speed;
 
     public event Action<Bullet> OnHit;
 
-    private const float Speed = 100;
     private Character player;
+    private Character longRangeSniperEnemy;
     private float range;
     private float penetratedEnemies;
     private float penPower;
@@ -16,7 +18,8 @@ public class Bullet : MonoBehaviour
     public void Start()
     {
         player = GameManager.Instance.CharacterFactory.Player;
-        Physics.IgnoreCollision(player.GetComponent<Collider>(), GetComponent<Collider>());
+        longRangeSniperEnemy = GameManager.Instance.CharacterFactory.LongRangeSniperEnemy;
+        Physics.IgnoreCollision(host.GetComponent<Collider>(), GetComponent<Collider>());
 
         range = MetaManager.Instance.WeaponData.AttackRange;
         penPower = MetaManager.Instance.WeaponData.PenetrationPower;
@@ -24,7 +27,7 @@ public class Bullet : MonoBehaviour
 
     public void Update()
     {
-        rb.velocity = transform.forward * Speed;
+        rb.velocity = transform.forward * speed;
         if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
             OnHit?.Invoke(this);
@@ -33,17 +36,28 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (host.gameObject.CompareTag("Player"))
         {
-            player.DamageComponent.DealDamage(other.gameObject.GetComponent<Enemy>());
-            if (penPower > 0 && penetratedEnemies < penPower)
+            if (other.gameObject.CompareTag("Enemy"))
             {
-                penetratedEnemies++;
+                player.DamageComponent.DealDamage(other.gameObject.GetComponent<Enemy>());
+                if (penPower > 0 && penetratedEnemies < penPower)
+                {
+                    penetratedEnemies++;
+                }
+                else
+                {
+                    OnHit?.Invoke(this);
+                    penetratedEnemies = 0;
+                }
             }
-            else
+        }
+        else
+        {
+            if (other.gameObject.CompareTag("Player"))
             {
+                longRangeSniperEnemy.DamageComponent.DealDamageToPlayer(player);
                 OnHit?.Invoke(this);
-                penetratedEnemies = 0;
             }
         }
     }

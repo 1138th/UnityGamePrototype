@@ -31,7 +31,6 @@ public class LogicComponent : CharacterComponent, ILogicComponent
                 GameManager.Instance.ShootingController.ShootBullets();
             }
         }
-        
         Character.MovableComponent.PlayerMove(movementVector);
     }
     
@@ -63,13 +62,24 @@ public class LogicComponent : CharacterComponent, ILogicComponent
 
     private void Attack(Character target)
     {
-        if (timeBetweenAttack <= 0)
+        switch (Character.Type)
         {
-            Character.DamageComponent.DealDamageToPlayer(target);
-            timeBetweenAttack = Character.Data.TimeBetweenAttacks;
-        }
-        else {
-            timeBetweenAttack -= Time.deltaTime;
+            case CharacterType.DefaultEnemy:
+                if (timeBetweenAttack <= 0)
+                {
+                    Character.DamageComponent.DealDamageToPlayer(target);
+                    timeBetweenAttack = Character.Data.TimeBetweenAttacks;
+                }
+                else {
+                    timeBetweenAttack -= Time.deltaTime;
+                }
+                break;
+            case CharacterType.LongRangeSniperEnemy:
+                Character.MovableComponent.LookAt(target);
+                GameManager.Instance.ShootingController.ShootEnemyBullets(Character);
+                break;
+            default:
+                throw new InvalidEnumArgumentException("Invalid character type: " + Character.Type);
         }
     }
 }
