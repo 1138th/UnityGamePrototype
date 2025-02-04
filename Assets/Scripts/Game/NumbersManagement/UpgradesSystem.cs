@@ -122,9 +122,7 @@ public class UpgradesSystem : MonoBehaviour
 
     public void SelectUpgrade(int selectedUpgradeIndex)
     {
-        if (player == null) 
-            player = GameManager.Instance.CharacterFactory.ActiveCharacters.Find(character => 
-                character.Type == CharacterType.Player);
+        if (player == null) player = GameManager.Instance.CharacterFactory.Player;
 
         switch (upgradesIndex[selectedUpgradeIndex])
         {

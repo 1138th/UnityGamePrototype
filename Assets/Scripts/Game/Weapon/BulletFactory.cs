@@ -45,7 +45,7 @@ public class BulletFactory : MonoBehaviour
 
     private Vector3 GetBulletPosition(Character player)
     {
-        return new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
+        return new Vector3(player.transform.position.x, player.transform.position.y + 0.7f, player.transform.position.z);
     }
 
     private void SetBulletSpread(ref Bullet bullet, int projectilesCount)

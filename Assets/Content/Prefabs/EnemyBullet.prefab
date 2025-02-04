@@ -148,4 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2871719003694708287}
   host: {fileID: 3115409713421771824, guid: a97c2f66d0f651746bcfa9a62c317af0, type: 3}
-  speed: 10
+  speed: 5

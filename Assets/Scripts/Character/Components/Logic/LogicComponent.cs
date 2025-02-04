@@ -13,6 +13,7 @@ public class LogicComponent : CharacterComponent, ILogicComponent
 
         var movementVector = new Vector3(moveHorizontal, 0, moveVertical).normalized;
 
+        // if (Input.GetButtonDown("Fire3"))
         if (Input.GetButtonDown("Jump"))
         {
             isAimManual = !isAimManual;
