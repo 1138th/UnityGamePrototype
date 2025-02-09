@@ -17,8 +17,8 @@ public abstract class Character : MonoBehaviour
     {
         Data = GetComponent<CharacterData>();
 
-        MovableComponent = new CharacterMovementComponent();
-        LogicComponent = new LogicComponent();
+        MovableComponent = gameObject.AddComponent<CharacterMovementComponent>();
+        LogicComponent = gameObject.AddComponent<LogicComponent>();
 
         MovableComponent.Initialize(this);
         LogicComponent.Initialize(this);

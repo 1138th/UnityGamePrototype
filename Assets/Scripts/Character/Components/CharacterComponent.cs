@@ -1,4 +1,6 @@
-public class CharacterComponent : ICharacterComponent
+using UnityEngine;
+
+public class CharacterComponent : MonoBehaviour, ICharacterComponent
 {
     public Character Character { get; protected set; }
 

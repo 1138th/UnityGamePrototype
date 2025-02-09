@@ -28,9 +28,9 @@ public class Player : Character
     {
         base.Init();
 
-        HealthComponent = new CharacterHealthComponent();
-        DamageComponent = new CharacterDamageComponent();
-        
+        HealthComponent = gameObject.AddComponent<CharacterHealthComponent>();
+        DamageComponent = gameObject.AddComponent<CharacterDamageComponent>();
+
         HealthComponent.Initialize(this);
         DamageComponent.Initialize(this);
 
@@ -40,7 +40,9 @@ public class Player : Character
 
     public override void Update()
     {
-        LogicComponent.PlayerMove(Target);
+        LogicComponent.PlayerPcMove(Target);
+        // LogicComponent.PlayerMobileMove(Target);
+        LogicComponent.PlayerDash();
         HealthComponent.RegenerateHealth();
     }
 }

@@ -5,6 +5,8 @@ public class CharacterData : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float speed;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashTime;
     [SerializeField] private float damage;
     [SerializeField] private float attackRange;
     [SerializeField] private float timeBetweenAttacks;
@@ -16,6 +18,8 @@ public class CharacterData : MonoBehaviour
 
     public float MaxHealth => maxHealth;
     public float DefaultSpeed => speed;
+    public float DashSpeed => dashSpeed;
+    public float DashTime => dashTime;
     public float Damage => damage;
     public float AttackRange => attackRange;
     public float TimeBetweenAttacks => timeBetweenAttacks;

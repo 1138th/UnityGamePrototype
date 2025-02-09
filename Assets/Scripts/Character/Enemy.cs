@@ -10,8 +10,8 @@ public class Enemy : Character
     {
         base.Init();
 
-        HealthComponent = new CharacterHealthComponent();
-        DamageComponent = new CharacterDamageComponent();
+        HealthComponent = gameObject.AddComponent<CharacterHealthComponent>();
+        DamageComponent = gameObject.AddComponent<CharacterDamageComponent>();
 
         HealthComponent.Initialize(this);
         DamageComponent.Initialize(this);
