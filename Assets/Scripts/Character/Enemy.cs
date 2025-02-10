@@ -6,15 +6,19 @@ public class Enemy : Character
 
     public override Character Target => GameManager.Instance.CharacterFactory.Player;
 
+    public IEnemyLogicComponent LogicComponent;
+
     public override void Init()
     {
         base.Init();
 
         HealthComponent = gameObject.AddComponent<CharacterHealthComponent>();
         DamageComponent = gameObject.AddComponent<CharacterDamageComponent>();
+        LogicComponent = gameObject.AddComponent<EnemyLogicComponent>();
 
         HealthComponent.Initialize(this);
         DamageComponent.Initialize(this);
+        LogicComponent.Initialize(this);
     }
 
     public override void Update()

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Player : Character
 {
+    public IPlayerLogicComponent LogicComponent;
+
     public override Character Target
     {
         get
@@ -30,9 +32,11 @@ public class Player : Character
 
         HealthComponent = gameObject.AddComponent<CharacterHealthComponent>();
         DamageComponent = gameObject.AddComponent<CharacterDamageComponent>();
+        LogicComponent = gameObject.AddComponent<PlayerLogicComponent>();
 
         HealthComponent.Initialize(this);
         DamageComponent.Initialize(this);
+        LogicComponent.Initialize(this);
 
         Data.HealthBar.maxValue = Data.MaxHealth;
         Data.HealthBar.value = Data.MaxHealth;

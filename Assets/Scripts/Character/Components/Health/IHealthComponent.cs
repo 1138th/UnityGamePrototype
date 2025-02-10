@@ -12,4 +12,6 @@ public interface IHealthComponent : ICharacterComponent
     public void RegenerateHealth();
 
     public void IncreaseHpRegen(float amount);
+
+    public void MakeImmortal(bool isImmortal);
 }

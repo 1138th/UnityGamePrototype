@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   speed: 15
-  dashSpeed: 70
+  dashSpeed: 100
   dashTime: 0.2
   damage: 0
   attackRange: 5

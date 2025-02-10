@@ -7,6 +7,7 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
     private float maxHealth;
     private float hpRegen;
     private float hpRegenDeltaTime;
+    private bool isImmortal = false;
 
     public event Action<Character> OnDeath;
 
@@ -49,8 +50,11 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
 
     public void TakeDamage(float damage)
     {
-        CurrentHealth -= damage;
-        if (Character.Data.HealthBar) Character.Data.HealthBar.value = CurrentHealth;
+        if (!isImmortal)
+        {
+            CurrentHealth -= damage;
+            if (Character.Data.HealthBar) Character.Data.HealthBar.value = CurrentHealth;
+        }
     }
 
     public void IncreaseHealth(float amount)
@@ -65,6 +69,11 @@ public class CharacterHealthComponent : CharacterComponent, IHealthComponent
     public void IncreaseHpRegen(float amount)
     {
         hpRegen += amount;
+    }
+
+    public void MakeImmortal(bool immortal)
+    {
+        isImmortal = immortal;
     }
 
     public void ExecuteDeath()

@@ -9,7 +9,6 @@ public abstract class Character : MonoBehaviour
     public CharacterType Type => type;
 
     public IMovable MovableComponent { get; protected set; }
-    public ILogicComponent LogicComponent { get; protected set; }
     public IHealthComponent HealthComponent { get; protected set; }
     public IDamageComponent DamageComponent { get; protected set; }
 
@@ -18,10 +17,8 @@ public abstract class Character : MonoBehaviour
         Data = GetComponent<CharacterData>();
 
         MovableComponent = gameObject.AddComponent<CharacterMovementComponent>();
-        LogicComponent = gameObject.AddComponent<LogicComponent>();
 
         MovableComponent.Initialize(this);
-        LogicComponent.Initialize(this);
     }
 
     public abstract void Update();
