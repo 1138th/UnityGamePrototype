@@ -9,7 +9,7 @@
         Damage = 31.5f;
         AttackSpeed = 0.7f;
         ReloadTime = 2.5f;
-        AttackRange = 100;
+        AttackRange = 50;
         ProjectilesCount = 1;
         AmmoCount = 6;
         PenetrationPower = 3;

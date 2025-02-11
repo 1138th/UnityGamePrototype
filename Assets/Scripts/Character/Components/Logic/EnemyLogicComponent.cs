@@ -47,7 +47,7 @@ public class EnemyLogicComponent : CharacterComponent, IEnemyLogicComponent
                 break;
             case CharacterType.LongRangeSniperEnemy:
                 Character.MovableComponent.LookAt(target);
-                GameManager.Instance.ShootingController.ShootEnemyBullets(Character);
+                GameManager.Instance.EnemyShootingController.ShootBullets(Character);
                 break;
             default:
                 throw new InvalidEnumArgumentException("Invalid character type: " + Character.Type);

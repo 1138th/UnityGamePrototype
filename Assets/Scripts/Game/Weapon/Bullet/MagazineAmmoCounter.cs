@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class MagazineAmmoCounter : MonoBehaviour
 {
     [SerializeField] private Text currentMagazineAmmoAmount;
-    [SerializeField] private ShootingController shootingController;
+    [SerializeField] private PlayerShootingController shootingController;
 
     public void Update()
     {

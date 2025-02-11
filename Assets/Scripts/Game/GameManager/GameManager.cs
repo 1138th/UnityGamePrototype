@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CharacterFactory characterFactory;
     [SerializeField] private BulletFactory bulletFactory;
     [SerializeField] private CharacterSpawnController spawnController;
-    [SerializeField] private ShootingController shootingController;
+    [SerializeField] private ShootingController playerShootingController;
+    [SerializeField] private ShootingController enemyShootingController;
     [SerializeField] private ScoreSystem scoreSystem;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOverMenu;
@@ -20,14 +21,16 @@ public class GameManager : MonoBehaviour
     private int enemiesKilled;
 
     public CharacterFactory CharacterFactory => characterFactory;
-    public ShootingController ShootingController => shootingController;
+    public ShootingController PlayerShootingController => playerShootingController;
+    public ShootingController EnemyShootingController => enemyShootingController;
     public int EnemiesKilled => enemiesKilled;
     public bool IsGameActive => isGameActive;
 
     private void Init()
     {
         spawnController.Init();
-        shootingController.Init();
+        playerShootingController.Init();
+        enemyShootingController.Init();
         isGameActive = false;
         isGamePaused = false;
     }

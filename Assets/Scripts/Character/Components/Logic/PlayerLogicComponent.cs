@@ -40,14 +40,14 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         if (isAimManual)
         {
             Character.MovableComponent.LookAt(Input.mousePosition);
-            GameManager.Instance.ShootingController.ShootBullets();
+            GameManager.Instance.PlayerShootingController.ShootBullets(Character);
         }
         else
         {
             if (target != null)
             {
                 Character.MovableComponent.LookAt(target);
-                GameManager.Instance.ShootingController.ShootBullets();
+                GameManager.Instance.PlayerShootingController.ShootBullets(Character);
             }
         }
         Character.MovableComponent.PlayerMove(movementVector);
@@ -65,14 +65,14 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         if (isAimManual)
         {
             Character.transform.rotation = Quaternion.LookRotation(aimVector);
-            GameManager.Instance.ShootingController.ShootBullets();
+            GameManager.Instance.PlayerShootingController.ShootBullets(Character);
         }
         else
         {
             if (target != null)
             {
                 Character.MovableComponent.LookAt(target);
-                GameManager.Instance.ShootingController.ShootBullets();
+                GameManager.Instance.PlayerShootingController.ShootBullets(Character);
             }
         }
 
