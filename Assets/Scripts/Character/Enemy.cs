@@ -10,11 +10,14 @@ public class Enemy : Character
 
     public override void Init()
     {
-        base.Init();
+        if (LogicComponent == null)
+        {
+            base.Init();
 
-        HealthComponent = gameObject.AddComponent<CharacterHealthComponent>();
-        DamageComponent = gameObject.AddComponent<CharacterDamageComponent>();
-        LogicComponent = gameObject.AddComponent<EnemyLogicComponent>();
+            HealthComponent = gameObject.AddComponent<CharacterHealthComponent>();
+            DamageComponent = gameObject.AddComponent<CharacterDamageComponent>();
+            LogicComponent = gameObject.AddComponent<EnemyLogicComponent>();
+        }
 
         HealthComponent.Initialize(this);
         DamageComponent.Initialize(this);

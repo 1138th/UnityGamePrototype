@@ -22,11 +22,11 @@ public class UpgradesSystem : MonoBehaviour
     {
         "EXP +10%",
         "DMG +10%",
-        "Attack Speed +5%",
-        "Move Speed +10%",
-        "HP +40",
-        "DMG Reduction +10%",
-        "+2 HP/s"
+        // "Attack Speed +5%",
+        // "Move Speed +10%",
+        // "HP +40",
+        // "DMG Reduction +10%",
+        // "+2 HP/s"
     };
 
     private List<string> icons = new()
@@ -133,21 +133,21 @@ public class UpgradesSystem : MonoBehaviour
                 DamageAmp += 0.1f;
                 break;
             case 2:
-                AttackSpeedAmp -= 0.05f;
-                break;
-            case 3:
-                MoveSpeedAmp += 0.1f;
-                break;
-            case 4:
-                player.HealthComponent.IncreaseHealth(40);
-                break;
-            case 5:
-                DamageReductionAmp -= 0.1f;
-                break;
-            case 6:
-                player.HealthComponent.IncreaseHpRegen(2);
-                break;
-            case 7:
+            //     AttackSpeedAmp -= 0.05f;
+            //     break;
+            // case 3:
+            //     MoveSpeedAmp += 0.1f;
+            //     break;
+            // case 4:
+            //     player.HealthComponent.IncreaseHealth(40);
+            //     break;
+            // case 5:
+            //     DamageReductionAmp -= 0.1f;
+            //     break;
+            // case 6:
+            //     player.HealthComponent.IncreaseHpRegen(2);
+            //     break;
+            // case 7:
                 UniqueUpgradeHandler();
                 break;
         }
@@ -160,11 +160,16 @@ public class UpgradesSystem : MonoBehaviour
     {
         switch (uniqueUpgrades.Count)
         {
-            case 1:
+            case 3:
+                Character drone = GameManager.Instance.CharacterFactory.CreateCharacter(CharacterType.Drone);
+                drone.gameObject.SetActive(true);
+                drone.Init();
+
+                uniqueUpgrades.RemoveAt(0);
                 break;
             case 2:
                 break;
-            case 3:
+            case 1:
                 break;
         }
     }

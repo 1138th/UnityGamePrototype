@@ -10,6 +10,8 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
     private Button dashButton;
     
     private bool isAimManual = false;
+    private float iFrameTime = 0.5f;
+    private float iFrameExecutionTime = 0.5f;
 
     public new void Initialize(Character character)
     {
@@ -89,7 +91,12 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
     {
         Character.HealthComponent.MakeImmortal(true);
         StartCoroutine(CoroutineDash());
+        while (iFrameExecutionTime >= 0)
+        {
+            iFrameExecutionTime -= Time.deltaTime;
+        }
         Character.HealthComponent.MakeImmortal(false);
+        iFrameExecutionTime = iFrameTime;
     }
 
     private IEnumerator CoroutineDash()

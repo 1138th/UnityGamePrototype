@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterFactory : MonoBehaviour
 {
     [SerializeField] private Character playerPrefab;
+    [SerializeField] private Character dronePrefab;
     [SerializeField] private Character enemy1Prefab;
     [SerializeField] private Character enemy2Prefab;
 
@@ -13,6 +14,7 @@ public class CharacterFactory : MonoBehaviour
     private List<Character> activeCharacters = new List<Character>();
     
     public Character Player { get; private set; }
+    public Character Drone { get; private set; }
     public Character LongRangeSniperEnemy { get; private set; }
     public List<Character> ActiveCharacters => activeCharacters;
 
@@ -49,7 +51,7 @@ public class CharacterFactory : MonoBehaviour
         activeCharacters.Remove(character);
     }
 
-    private Character CreateCharacter(CharacterType type)
+    public Character CreateCharacter(CharacterType type)
     {
         Character character;
         switch (type)
@@ -65,6 +67,10 @@ public class CharacterFactory : MonoBehaviour
             case CharacterType.LongRangeSniperEnemy:
                 character = Instantiate(enemy2Prefab, null);
                 LongRangeSniperEnemy = character;
+                break;
+            case CharacterType.Drone:
+                character = Instantiate(dronePrefab, null);
+                Drone = character;
                 break;
             default:
                 throw new InvalidEnumArgumentException("Invalid character type: " + type);

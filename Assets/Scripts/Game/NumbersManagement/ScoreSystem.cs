@@ -37,7 +37,7 @@ public class ScoreSystem : MonoBehaviour
             expBar.maxValue = expToNextLevel;
 
             upgradePanel.SetActive(true);
-            Time.timeScale = 0;
+            Time.timeScale = 0.15f;
         }
 
         scoreText.text = $"{Score}";
