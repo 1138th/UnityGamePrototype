@@ -2,7 +2,12 @@ public class CharacterDamageComponent : CharacterComponent, IDamageComponent
 {
     public void DealDamage(Character target)
     {
-        target.HealthComponent?.TakeDamage(MetaManager.Instance.WeaponData.Damage * UpgradesSystem.Instance.DamageAmp);
+        DealDamage(target, MetaManager.Instance.WeaponData.Damage * UpgradesSystem.Instance.DamageAmp);
+    }
+
+    public void DealDamage(Character target, float damage)
+    {
+        target.HealthComponent?.TakeDamage(damage);
     }
 
     public void DealDamageToPlayer(Character target)

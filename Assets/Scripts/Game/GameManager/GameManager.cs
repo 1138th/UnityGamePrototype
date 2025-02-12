@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameData gameData;
     [SerializeField] private CharacterFactory characterFactory;
-    [SerializeField] private BulletFactory bulletFactory;
     [SerializeField] private CharacterSpawnController spawnController;
-    [SerializeField] private ShootingController playerShootingController;
-    [SerializeField] private ShootingController enemyShootingController;
+    [SerializeField] private PlayerShootingController playerShootingController;
+    [SerializeField] private DroneShootingController droneShootingController;
+    [SerializeField] private EnemyShootingController enemyShootingController;
     [SerializeField] private ScoreSystem scoreSystem;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOverMenu;
@@ -21,8 +21,9 @@ public class GameManager : MonoBehaviour
     private int enemiesKilled;
 
     public CharacterFactory CharacterFactory => characterFactory;
-    public ShootingController PlayerShootingController => playerShootingController;
-    public ShootingController EnemyShootingController => enemyShootingController;
+    public PlayerShootingController PlayerShootingController => playerShootingController;
+    public DroneShootingController DroneShootingController => droneShootingController;
+    public EnemyShootingController EnemyShootingController => enemyShootingController;
     public int EnemiesKilled => enemiesKilled;
     public bool IsGameActive => isGameActive;
 

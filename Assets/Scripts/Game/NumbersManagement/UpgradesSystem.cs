@@ -43,7 +43,7 @@ public class UpgradesSystem : MonoBehaviour
     private List<string> uniqueUpgrades = new()
     {
         "Get a drone that shoots enemies",
-        "+ 1 turret for a drone",
+        "x2 drone projectiles",
         "Make bullets flammable"
     };
 
@@ -164,10 +164,15 @@ public class UpgradesSystem : MonoBehaviour
                 Character drone = GameManager.Instance.CharacterFactory.CreateCharacter(CharacterType.Drone);
                 drone.gameObject.SetActive(true);
                 drone.Init();
+                gameManager.DroneShootingController.Init();
 
                 uniqueUpgrades.RemoveAt(0);
                 break;
             case 2:
+                GameManager.Instance.DroneShootingController.ChangeProjectilesNumber(
+                    GameManager.Instance.DroneShootingController.ProjectilesNumber * 2);
+
+                uniqueUpgrades.RemoveAt(0);
                 break;
             case 1:
                 break;

@@ -10,27 +10,6 @@ public class DroneController : Character
 
     public IDroneLogicComponent DroneLogicComponent;
 
-    public override Character Target
-    {
-        get
-        {
-            Character target = null;
-            float minDistance = float.MaxValue;
-            List<Character> characters = GameManager.Instance.CharacterFactory.ActiveCharacters;
-            for (int i = 0; i < characters.Count; i++)
-            {
-                if (characters[i].Type == CharacterType.Player) continue;
-                float distance = Vector3.Distance(characters[i].transform.position, transform.position);
-                if (distance < minDistance)
-                {
-                    target = characters[i];
-                    minDistance = distance;
-                }
-            }
-            return target;
-        }
-    }
-
     public override void Init()
     {
         base.Init();
@@ -45,10 +24,11 @@ public class DroneController : Character
         speed = Data.DefaultSpeed;
         controller = Data.CharacterController;
         controller.detectCollisions = false;
+        Physics.IgnoreLayerCollision(0, 6, true);
 
         transform.position = new Vector3(
             player.transform.position.x + 5.5f,
-            player.transform.position.y + 12.5f,
+            player.transform.position.y + 1,
             player.transform.position.z - 3);
     }
 

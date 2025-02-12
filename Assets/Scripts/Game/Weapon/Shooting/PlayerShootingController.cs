@@ -35,7 +35,7 @@ public class PlayerShootingController : ShootingController
         {
             if (spawnsDeltaTime <= 0)
             {
-                Bullet[] bullets = bulletFactory.GetBullets(shooter, projectilesCount);
+                Bullet[] bullets = bulletFactory.GetBullets(shooter, projectilesCount, true);
                 foreach (var bullet in bullets)
                 {
                     bullet.gameObject.SetActive(true);

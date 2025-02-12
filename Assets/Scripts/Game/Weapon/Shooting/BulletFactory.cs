@@ -8,7 +8,7 @@ public class BulletFactory : MonoBehaviour
     private List<Bullet> activeBullets = new List<Bullet>();
     private Queue<Bullet> disabledBullets = new Queue<Bullet>();
 
-    public Bullet[] GetBullets(Character shooter, int projectilesCount)
+    public Bullet[] GetBullets(Character shooter, int projectilesCount, bool spread = false)
     {
         Bullet[] bullets = new Bullet[projectilesCount];
 
@@ -19,13 +19,13 @@ public class BulletFactory : MonoBehaviour
                 bullets[i] = disabledBullets.Dequeue();
                 bullets[i].transform.position = GetBulletPosition(shooter);
                 bullets[i].transform.rotation = shooter.transform.rotation;
-                SetBulletSpread(ref bullets[i], projectilesCount);
+                if (spread) SetBulletSpread(ref bullets[i], projectilesCount);
             }
 
             if (bullets[i] == null)
             {
                 bullets[i] = Instantiate(bulletPrefab, GetBulletPosition(shooter), shooter.transform.rotation);
-                SetBulletSpread(ref bullets[i], projectilesCount);
+                if (spread) SetBulletSpread(ref bullets[i], projectilesCount);
             }
 
             activeBullets.Add(bullets[i]);
