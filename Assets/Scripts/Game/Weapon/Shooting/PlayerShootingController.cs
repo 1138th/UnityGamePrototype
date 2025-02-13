@@ -4,6 +4,7 @@ public class PlayerShootingController : ShootingController
 {
     private float reloadDeltaTime;
     private int projectilesCount = 1;
+    private bool refillBullets = false;
 
     public WeaponData WeaponData { get; private set; }
     public int BulletsShot { get; private set; }
@@ -54,5 +55,18 @@ public class PlayerShootingController : ShootingController
         bulletFactory.ReturnBullet(bullet);
 
         bullet.OnHit -= BulletHitHandler;
+    }
+
+    public void ActivateRefillBulletsUpgrade()
+    {
+        refillBullets = true;
+    }
+
+    public void RefillBullet()
+    {
+        if (refillBullets)
+        {
+            BulletsShot--;
+        }
     }
 }

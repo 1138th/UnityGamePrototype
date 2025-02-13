@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     private bool isGameActive;
     private bool isGamePaused;
+    private bool isEnemiesSpawnEnabled = true;
     private float gameSessionTime;
     private int enemiesKilled;
 
@@ -93,12 +94,17 @@ public class GameManager : MonoBehaviour
 
         gameSessionTime += Time.deltaTime;
 
-        spawnController.ExecuteSpawnEnemiesLogic();
+        if (isEnemiesSpawnEnabled) spawnController.ExecuteSpawnEnemiesLogic();
 
         if (gameSessionTime >= gameData.SessionTimeSeconds)
         {
             GameOver("Victory!");
         }
+    }
+
+    public void EnableEnemiesSpawn()
+    {
+        isEnemiesSpawnEnabled = !isEnemiesSpawnEnabled;
     }
 
     public void CharacterDeathHandler(Character deadCharacter)
@@ -109,12 +115,10 @@ public class GameManager : MonoBehaviour
                 GameOver("Game Over!");
                 break;
             case CharacterType.DefaultEnemy:
-                scoreSystem.AddScore(deadCharacter.Data.ScoreValue);
-                enemiesKilled++;
-                break;
             case CharacterType.LongRangeSniperEnemy:
                 scoreSystem.AddScore(deadCharacter.Data.ScoreValue);
                 enemiesKilled++;
+                if (enemiesKilled % 3 == 0) playerShootingController.RefillBullet();
                 break;
         }
 

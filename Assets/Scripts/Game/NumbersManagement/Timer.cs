@@ -15,7 +15,7 @@ public class Timer : MonoBehaviour
         sessionTime = data.SessionTimeSeconds;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!gameManager.IsGameActive) return;
 

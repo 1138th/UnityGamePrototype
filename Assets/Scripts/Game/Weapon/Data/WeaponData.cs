@@ -9,4 +9,9 @@
     public int ProjectilesCount { get; protected set; }
     public int AmmoCount { get; protected set; }
     public int PenetrationPower { get; protected set; }
+
+    public void IncreaseAmmo(int ammo)
+    {
+        AmmoCount += ammo;
+    }
 }

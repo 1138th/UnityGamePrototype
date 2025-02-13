@@ -32,7 +32,7 @@ public class DroneShootingController : ShootingController
                 bullets[i].OnHit += BulletHitHandler;
             }
 
-            spawnsDelta = spawnsDeltaTime;
+            spawnsDelta = spawnsDeltaTime * UpgradesSystem.Instance.AttackSpeedAmp;
         }
     }
 
