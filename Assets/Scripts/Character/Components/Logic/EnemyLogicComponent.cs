@@ -5,6 +5,8 @@ public class EnemyLogicComponent : CharacterComponent, IEnemyLogicComponent
 {
     private float timeBetweenAttack;
 
+    private const float MaxDistanceOffset = 70;
+
     public void EnemyMove(Character target, ref AiState currentState)
     {
         var distanceToTarget = Vector3.Distance(target.transform.position, Character.transform.position);
@@ -17,6 +19,11 @@ public class EnemyLogicComponent : CharacterComponent, IEnemyLogicComponent
                 if (distanceToTarget < Character.Data.AttackRange)
                 {
                     currentState = AiState.Attack;
+                }
+
+                if (distanceToTarget >= MaxDistanceOffset)
+                {
+                    RespawnFarEnemy(target.transform.position);
                 }
                 break;
             case AiState.Attack:
@@ -52,5 +59,15 @@ public class EnemyLogicComponent : CharacterComponent, IEnemyLogicComponent
             default:
                 throw new InvalidEnumArgumentException("Invalid character type: " + Character.Type);
         }
+    }
+
+    /// <summary>
+    /// Respawns enemies on the opposite side of a circle around the player 
+    /// </summary>
+    private void RespawnFarEnemy(Vector3 playerPosition)
+    {
+        Vector3 temp = playerPosition - Character.transform.position;
+
+        Character.transform.position = temp.normalized * (MaxDistanceOffset - 10) + playerPosition;
     }
 }
