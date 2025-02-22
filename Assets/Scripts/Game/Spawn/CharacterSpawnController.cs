@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CharacterSpawnController : MonoBehaviour
 {
@@ -44,9 +46,7 @@ public class CharacterSpawnController : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Character enemy;
-            if (Random.Range(0, 100) % 2 == 0) enemy = characterFactory.GetCharacter(CharacterType.DefaultEnemy);
-            else enemy = characterFactory.GetCharacter(CharacterType.LongRangeSniperEnemy);
+            Character enemy = characterFactory.GetCharacter(RandomizeEnemyType());
 
             Vector3 playerPosition = characterFactory.Player.transform.position;
             enemy.transform.position = new Vector3(playerPosition.x + GetOffset(), 0, playerPosition.z + GetOffset());
@@ -55,6 +55,14 @@ public class CharacterSpawnController : MonoBehaviour
             enemy.Init();
             enemy.HealthComponent.OnDeath += GameManager.Instance.CharacterDeathHandler;
         }
+    }
+
+    /// <summary>
+    /// Evenly redistributes chance of spawning any type of enemy 
+    /// </summary>
+    private CharacterType RandomizeEnemyType()
+    {
+        return (CharacterType) Random.Range(3, Enum.GetValues(typeof(CharacterType)).Length);
     }
 
     private float GetOffset()

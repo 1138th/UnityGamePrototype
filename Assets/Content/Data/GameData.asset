@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: GameData
   m_EditorClassIdentifier: 
   sessionTimeMinutes: 15
-  timeBetweenEnemySpawn: 1.5
+  spawnsAmountForMultiplierToIncrease: 20
+  maxEnemiesPerSpawn: 10
+  timeBetweenEnemySpawn: 2.5
+  minSpawnOffset: 15
+  maxSpawnOffset: 30
+  reactTime: 0.7

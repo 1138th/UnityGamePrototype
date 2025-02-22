@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8478037943558974801}
   - component: {fileID: 8930093004674984501}
   - component: {fileID: 2239170048438268125}
-  - component: {fileID: 3115409713421771824}
+  - component: {fileID: 5829493550481331493}
   m_Layer: 0
-  m_Name: Enemy2Controller
+  m_Name: Enemy3Controller
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,14 +77,15 @@ MonoBehaviour:
   speed: 50
   dashSpeed: 0
   dashTime: 0
-  damage: 10
-  attackRange: 50
-  timeBetweenAttacks: 1
-  scoreValue: 10
+  damage: 20
+  attackRange: 25
+  timeBetweenAttacks: 3
+  attackDelay: 0.7
+  scoreValue: 15
   characterTransform: {fileID: 8478037943558974801}
   characterController: {fileID: 8930093004674984501}
   healthBar: {fileID: 0}
---- !u!114 &3115409713421771824
+--- !u!114 &5829493550481331493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,10 +94,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1186458507065553038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd3e74cb247a02f47a9ad337e4fbfae2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7de6b45fd1a945edae658109c868b870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 4
+  type: 5
   currentState: 1
 --- !u!1 &6111699477594624404
 GameObject:
@@ -159,7 +160,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 33a3de0eb7f1f3c499e7cab6769b76fe, type: 2}
+  - {fileID: 2100000, guid: 9298c1f97ff67a843b2911d91b906966, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

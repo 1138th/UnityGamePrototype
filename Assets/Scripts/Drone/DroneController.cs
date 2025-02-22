@@ -36,12 +36,12 @@ public class DroneController : Character
     {
         distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        if (distanceToPlayer > 15)
+        if (distanceToPlayer > 9)
         {
             transform.LookAt(new Vector3(
-                player.transform.position.x + 5.5f,
+                player.transform.position.x,
                 transform.position.y,
-                player.transform.position.z - 3));
+                player.transform.position.z));
             controller.Move(controller.transform.TransformDirection(Vector3.forward) * (speed * Time.deltaTime));
         }
 

@@ -25,7 +25,7 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         playerMovementVector = Vector3.zero;
     }
 
-    public void PlayerPcMove(Character target)
+    public Vector3 PlayerPcMove(Character target)
     {
         var moveHorizontal = Input.GetAxis("Horizontal");
         var moveVertical = Input.GetAxis("Vertical");
@@ -51,9 +51,10 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
             }
         }
         Character.MovableComponent.PlayerMove(movementVector);
+        return movementVector;
     }
     
-    public void PlayerMobileMove(Character target)
+    public Vector3 PlayerMobileMove(Character target)
     {
         var movementVector = new Vector3(movementJoystick.Horizontal, 0, movementJoystick.Vertical).normalized;
         var aimVector = new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical).normalized;
@@ -77,6 +78,7 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         }
 
         Character.MovableComponent.PlayerMove(movementVector);
+        return movementVector;
     }
 
     public void PlayerDash()

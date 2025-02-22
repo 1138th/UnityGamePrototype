@@ -43,9 +43,9 @@ public class BulletFactory : MonoBehaviour
         activeBullets.Remove(bullet);
     }
 
-    private Vector3 GetBulletPosition(Character player)
+    private Vector3 GetBulletPosition(Character shooter)
     {
-        return new Vector3(player.transform.position.x, player.transform.position.y + 0.7f, player.transform.position.z);
+        return new Vector3(shooter.transform.position.x, shooter.transform.position.y + 0.7f, shooter.transform.position.z);
     }
 
     private void SetBulletSpread(ref Bullet bullet, int projectilesCount)

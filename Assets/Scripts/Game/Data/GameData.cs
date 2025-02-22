@@ -6,7 +6,7 @@ public class GameData : ScriptableObject
     [SerializeField] private int sessionTimeMinutes = 15;
     [SerializeField] private int spawnsAmountForMultiplierToIncrease = 20;
     [SerializeField] private int maxEnemiesPerSpawn = 10;
-    [SerializeField] private float timeBetweenEnemySpawn = 1.5f;
+    [SerializeField] private float timeBetweenEnemySpawn = 2.5f;
     [SerializeField] private float minSpawnOffset = 15;
     [SerializeField] private float maxSpawnOffset = 30;
     

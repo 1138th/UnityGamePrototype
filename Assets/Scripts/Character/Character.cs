@@ -5,7 +5,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] private CharacterType type;
 
     public virtual Character Target { get; }
-    public CharacterData Data { get; private set; }
+    public CharacterData Data { get; protected set; }
     public CharacterType Type => type;
 
     public IMovable MovableComponent { get; protected set; }

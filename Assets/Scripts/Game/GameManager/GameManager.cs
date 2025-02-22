@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
                 break;
             case CharacterType.DefaultEnemy:
             case CharacterType.LongRangeSniperEnemy:
+            case CharacterType.LaserEnemy:
                 scoreSystem.AddScore(deadCharacter.Data.ScoreValue);
                 enemiesKilled++;
                 if (enemiesKilled % 3 == 0) playerShootingController.RefillBullet();

@@ -10,6 +10,7 @@ public class CharacterData : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float attackRange;
     [SerializeField] private float timeBetweenAttacks;
+    [SerializeField] private float attackDelay;
     [SerializeField] private int scoreValue;
 
     [SerializeField] private Transform characterTransform;
@@ -23,6 +24,7 @@ public class CharacterData : MonoBehaviour
     public float Damage => damage;
     public float AttackRange => attackRange;
     public float TimeBetweenAttacks => timeBetweenAttacks;
+    public float AttackDelay => attackDelay;
     public int ScoreValue => scoreValue;
     public Transform CharacterTransform => characterTransform;
     public CharacterController CharacterController => characterController;

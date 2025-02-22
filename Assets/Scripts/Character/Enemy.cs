@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    [SerializeField] private AiState currentState;
+    [SerializeField] protected AiState currentState;
 
     public override Character Target => GameManager.Instance.CharacterFactory.Player;
 
-    public IEnemyLogicComponent LogicComponent;
+    protected IEnemyLogicComponent LogicComponent;
 
     public override void Init()
     {
