@@ -4,9 +4,25 @@ using UnityEngine;
 public class BulletFactory : MonoBehaviour
 {
     [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private CharacterType shooterType;
 
     private List<Bullet> activeBullets = new List<Bullet>();
     private Queue<Bullet> disabledBullets = new Queue<Bullet>();
+    private string bulletEntryPointPath;
+
+    private void Start()
+    {
+        switch (shooterType)
+        {
+            case CharacterType.Player:
+                bulletEntryPointPath = "CH_Rig/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/AssaultRifle/BulletEntryPoint";
+                break;
+            case CharacterType.Drone:
+            case CharacterType.LongRangeSniperEnemy:
+                bulletEntryPointPath = "BulletEntryPoint";
+                break;
+        }
+    }
 
     public Bullet[] GetBullets(Character shooter, int projectilesCount, bool spread = false)
     {
@@ -45,7 +61,7 @@ public class BulletFactory : MonoBehaviour
 
     private Vector3 GetBulletPosition(Character shooter)
     {
-        return new Vector3(shooter.transform.position.x, shooter.transform.position.y + 0.7f, shooter.transform.position.z);
+        return shooter.gameObject.transform.Find(bulletEntryPointPath).transform.position;
     }
 
     private void SetBulletSpread(ref Bullet bullet, int projectilesCount)

@@ -2,9 +2,9 @@
 {
     protected override void Update()
     {
-        transform.rotation = Host.transform.rotation;
+        if (Host) transform.rotation = Host.transform.rotation;
 
-        if (!Host.isActiveAndEnabled)
+        if (!Host || !Host.isActiveAndEnabled)
         {
             InvokeDestroyed(this);
         }

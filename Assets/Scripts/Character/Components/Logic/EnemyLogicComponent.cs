@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyLogicComponent : CharacterComponent, IEnemyLogicComponent
 {
     protected float TimeBetweenAttack;
+    private float attackDelay;
 
     protected const float MaxDistanceOffset = 70;
 
@@ -14,11 +15,16 @@ public class EnemyLogicComponent : CharacterComponent, IEnemyLogicComponent
         switch (currentState)
         {
             case AiState.MoveToTarget:
+                attackDelay = Character.Data.AttackDelay;
+                TimeBetweenAttack = 0;
+
                 Character.MovableComponent.EnemyMove(target);
 
                 if (distanceToTarget < Character.Data.AttackRange)
                 {
                     currentState = AiState.Attack;
+                    if (Character.Type == CharacterType.DefaultEnemy) 
+                        Character.Animator.SetBool("Attack", true);
                 }
 
                 if (distanceToTarget >= MaxDistanceOffset)
@@ -29,9 +35,19 @@ public class EnemyLogicComponent : CharacterComponent, IEnemyLogicComponent
             case AiState.Attack:
                 if (distanceToTarget >= Character.Data.AttackRange)
                 {
+                    if (Character.Type == CharacterType.DefaultEnemy) 
+                        Character.Animator.SetBool("Attack", false);
                     currentState = AiState.MoveToTarget;
                 }
-                Attack(target);
+
+                if (attackDelay <= 0)
+                {
+                    Attack(target);
+                }
+                else
+                {
+                    attackDelay -= Time.deltaTime;
+                }
                 break;
             default:
                 throw new InvalidEnumArgumentException("Invalid character state: " + currentState);

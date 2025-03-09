@@ -3,10 +3,12 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] private CharacterType type;
+    [SerializeField] private Animator animator;
 
     public virtual Character Target { get; }
     public CharacterData Data { get; protected set; }
     public CharacterType Type => type;
+    public Animator Animator => animator;
 
     public IMovable MovableComponent { get; protected set; }
     public IHealthComponent HealthComponent { get; protected set; }

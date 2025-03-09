@@ -6,7 +6,7 @@ public interface IMovable : ICharacterComponent
 
     public void PlayerMove(Vector3 direction);
     
-    public void EnemyMove(Character direction);
+    public Vector3 EnemyMove(Character direction);
 
     public void LookAt(Character target);
 

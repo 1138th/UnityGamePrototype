@@ -40,6 +40,9 @@ public class LaserFactory : MonoBehaviour
 
     private Vector3 GetLaserDefaultPosition(Character shooter)
     {
-        return new Vector3(shooter.transform.position.x, shooter.transform.position.y + 0.7f, shooter.transform.position.z);
+        return new Vector3(
+            shooter.transform.position.x,
+            shooter.transform.position.y + 2.3f,
+            shooter.transform.position.z);
     }
 }

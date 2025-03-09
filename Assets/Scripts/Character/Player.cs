@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField] private Animator animator;
-
     public IPlayerLogicComponent LogicComponent;
 
     public override Character Target
@@ -50,9 +48,9 @@ public class Player : Character
         // Vector3 movementVector = LogicComponent.PlayerMobileMove(Target);
         movementVector = Quaternion.Euler(0, 360 - transform.rotation.eulerAngles.y, 0) * movementVector;
 
-        animator.SetFloat("Horizontal", movementVector.x);
-        animator.SetFloat("Vertical", movementVector.z);
-        animator.SetFloat("Magnitude", movementVector.magnitude);
+        Animator.SetFloat("Horizontal", movementVector.x);
+        Animator.SetFloat("Vertical", movementVector.z);
+        Animator.SetFloat("Magnitude", movementVector.magnitude);
 
         LogicComponent.PlayerDash();
         HealthComponent.RegenerateHealth();

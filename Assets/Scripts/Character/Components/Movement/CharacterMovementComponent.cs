@@ -32,11 +32,13 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
         Character.Data.CharacterController.Move(move * (speed * UpgradesSystem.Instance.MoveSpeedAmp * Time.deltaTime));
     }
 
-    public void EnemyMove(Character target)
+    public Vector3 EnemyMove(Character target)
     {
         var controller = Character.Data.CharacterController;
+        Vector3 motion = controller.transform.TransformDirection(Vector3.forward) * (speed * Time.deltaTime);
         LookAt(target);
-        controller.Move(controller.transform.TransformDirection(Vector3.forward) * (speed * Time.deltaTime));
+        controller.Move(motion);
+        return motion;
     }
 
     public void LookAt(Character target)
