@@ -7,7 +7,7 @@
         WeaponModel = "AssaultRifle";
         Damage = 15;
         AttackSpeed = 0.1f;
-        ReloadTime = 2;
+        ReloadTime = 1f;
         AttackRange = 50;
         ProjectilesCount = 1;
         AmmoCount = 31;

@@ -7,8 +7,8 @@
         WeaponId = 2;
         WeaponModel = "Revolver";
         Damage = 31.5f;
-        AttackSpeed = 0.7f;
-        ReloadTime = 2.5f;
+        AttackSpeed = 0.3f;
+        ReloadTime = 1.5f;
         AttackRange = 50;
         ProjectilesCount = 1;
         AmmoCount = 6;

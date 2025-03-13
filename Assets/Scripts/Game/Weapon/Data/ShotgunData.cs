@@ -7,8 +7,8 @@
         WeaponId = 1;
         WeaponModel = "Shotgun";
         Damage = 45;
-        AttackSpeed = 1.5f;
-        ReloadTime = 2.5f;
+        AttackSpeed = 0.6f;
+        ReloadTime = 1.5f;
         AttackRange = 30;
         ProjectilesCount = 5;
         AmmoCount = 6;
