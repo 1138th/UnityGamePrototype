@@ -24,7 +24,7 @@ public class CharacterSpawnController : MonoBehaviour
         if (spawnsDeltaTime <= 0)
         {
             CalculateSpawnMultiplier();
-            SpawnEnemies(spawnMultiplier);
+            SpawnEnemies(spawnMultiplier * EventManager.DmgSpawnAmp);
             spawnsDeltaTime = gameData.TimeBetweenEnemySpawn;
         }
     }

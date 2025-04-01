@@ -26,7 +26,7 @@ public class ArmageddonHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        armageddonCooldownTimer -= Time.deltaTime;
+        armageddonCooldownTimer -= Time.fixedDeltaTime;
         armageddonCooldownTextfield.text = Mathf.FloorToInt(armageddonCooldownTimer).ToString();
 
         if (armageddonCooldownTimer <= 0)

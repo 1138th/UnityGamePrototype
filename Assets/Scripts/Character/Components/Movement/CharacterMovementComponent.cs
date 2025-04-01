@@ -29,7 +29,10 @@ public class CharacterMovementComponent : CharacterComponent, IMovable
 
         var targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         var move = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-        Character.Data.CharacterController.Move(move * (speed * UpgradesSystem.Instance.MoveSpeedAmp * Time.deltaTime));
+        Character.Data.CharacterController.Move(move * (speed
+                                                        * UpgradesSystem.MoveSpeedAmp
+                                                        * EventManager.MoveSpeedAmp
+                                                        * Time.deltaTime));
     }
 
     public Vector3 EnemyMove(Character target)

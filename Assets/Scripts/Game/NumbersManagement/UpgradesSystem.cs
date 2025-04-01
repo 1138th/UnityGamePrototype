@@ -6,17 +6,17 @@ using Random = System.Random;
 
 public class UpgradesSystem : MonoBehaviour
 {
-    public static UpgradesSystem Instance;
+    public static UpgradesSystem Instance { get; private set; }
 
     [SerializeField] private GameManager gameManager;
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private List<GameObject> upgradeButtons;
 
-    public float ExperienceAmp { get; private set; }
-    public float DamageAmp { get; private set; }
-    public float AttackSpeedAmp { get; private set; }
-    public float MoveSpeedAmp { get; private set; }
-    public float DamageReductionAmp { get; private set; }
+    public static float ExperienceAmp { get; private set; }
+    public static float DamageAmp { get; private set; }
+    public static float AttackSpeedAmp { get; private set; }
+    public static float MoveSpeedAmp { get; private set; }
+    public static float DamageReductionAmp { get; private set; }
 
     private Character player;
     private int[] upgradesIndex;
@@ -38,7 +38,7 @@ public class UpgradesSystem : MonoBehaviour
         "Move Speed +10%",
         "HP +40",
         "DMG Reduction +10%",
-        "+2 HP/s"
+        "+0.2 HP/s"
     };
 
     private List<string> repetitiveIcons = new()
@@ -176,7 +176,7 @@ public class UpgradesSystem : MonoBehaviour
                 DamageReductionAmp -= 0.1f;
                 break;
             case 6:
-                player.HealthComponent.IncreaseHpRegen(2);
+                player.HealthComponent.IncreaseHpRegen(0.2f);
                 break;
             case 7:
                 if (upgradeDrone) DroneUpgradeHandler();

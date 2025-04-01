@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MetaManager : MonoBehaviour
 {
-    public static MetaManager Instance;
+    public static MetaManager Instance { get; private set; }
     public WeaponData WeaponData { get; set; }
 
     private void Awake()

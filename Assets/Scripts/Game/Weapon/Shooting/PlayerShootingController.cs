@@ -20,6 +20,8 @@ public class PlayerShootingController : ShootingController
 
     public override void ShootBullets(Character shooter)
     {
+        if (!EventManager.WeaponEnabled) return;
+
         spawnsDeltaTime -= Time.deltaTime;
 
         if (BulletsShot >= WeaponData.AmmoCount)
@@ -29,14 +31,16 @@ public class PlayerShootingController : ShootingController
             if (reloadDeltaTime <= 0)
             {
                 BulletsShot = 0;
-                reloadDeltaTime = WeaponData.ReloadTime;
+                reloadDeltaTime = WeaponData.ReloadTime * EventManager.ReloadTimeAmp;
             }
         }
         else
         {
             if (spawnsDeltaTime <= 0)
             {
-                Bullet[] bullets = bulletFactory.GetBullets(shooter, projectilesCount, true);
+                Bullet[] bullets = bulletFactory.GetBullets(shooter,
+                    projectilesCount * EventManager.ProjectileAmp,
+                    true);
                 foreach (var bullet in bullets)
                 {
                     bullet.gameObject.SetActive(true);
@@ -45,7 +49,7 @@ public class PlayerShootingController : ShootingController
 
                 BulletsShot++;
 
-                spawnsDeltaTime = WeaponData.AttackSpeed * UpgradesSystem.Instance.AttackSpeedAmp;
+                spawnsDeltaTime = WeaponData.AttackSpeed * UpgradesSystem.AttackSpeedAmp;
             }
         }
     }

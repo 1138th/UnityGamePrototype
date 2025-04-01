@@ -8,7 +8,7 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
     private FloatingJoystick movementJoystick;
     private DynamicJoystick aimJoystick;
     private Button dashButton;
-    
+
     private bool isAimManual = false;
     private float iFrameTime = 0.5f;
     private float iFrameExecutionTime = 0.5f;
@@ -21,7 +21,7 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
 
         dashButton = GameObject.Find("Dash Button").GetComponent<Button>();
         dashButton.onClick.AddListener(ExecuteDash);
-        
+
         playerMovementVector = Vector3.zero;
     }
 
@@ -37,6 +37,7 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         {
             isAimManual = !isAimManual;
         }
+
         if (isAimManual)
         {
             Character.MovableComponent.LookAt(Input.mousePosition);
@@ -44,16 +45,17 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         }
         else
         {
-            if (target != null)
+            if (target != null && EventManager.AutoAimEnabled)
             {
                 Character.MovableComponent.LookAt(target);
                 GameManager.Instance.PlayerShootingController.ShootBullets(Character);
             }
         }
+
         Character.MovableComponent.PlayerMove(movementVector);
         return movementVector;
     }
-    
+
     public Vector3 PlayerMobileMove(Character target)
     {
         var movementVector = new Vector3(movementJoystick.Horizontal, 0, movementJoystick.Vertical).normalized;
@@ -97,6 +99,7 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         {
             iFrameExecutionTime -= Time.deltaTime;
         }
+
         Character.HealthComponent.MakeImmortal(false);
         iFrameExecutionTime = iFrameTime;
     }
@@ -110,7 +113,10 @@ public class PlayerLogicComponent : CharacterComponent, IPlayerLogicComponent
         while (Time.time < startTime + Character.Data.DashTime)
         {
             Character.Data.CharacterController.Move(
-                move * (Character.Data.DashSpeed * UpgradesSystem.Instance.MoveSpeedAmp * Time.deltaTime));
+                move * (Character.Data.DashSpeed
+                        * UpgradesSystem.MoveSpeedAmp
+                        * EventManager.MoveSpeedAmp
+                        * Time.deltaTime));
             yield return null;
         }
     }

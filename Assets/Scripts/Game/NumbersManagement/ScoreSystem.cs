@@ -51,7 +51,7 @@ public class ScoreSystem : MonoBehaviour
 
     public void AddScore(int earnedScore)
     {
-        Score += earnedScore * UpgradesSystem.Instance.ExperienceAmp;
+        Score += earnedScore * UpgradesSystem.ExperienceAmp;
     }
 
     public void EndGame()

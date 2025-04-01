@@ -68,7 +68,7 @@ public class BulletFactory : MonoBehaviour
     {
         bullet.transform.Rotate(
             0,
-            Random.Range(-projectilesCount, projectilesCount),
-            Random.Range(-projectilesCount, projectilesCount));
+            Random.Range(-projectilesCount * 2, projectilesCount * 2),
+            Random.Range(-projectilesCount * 2, projectilesCount * 2));
     }
 }

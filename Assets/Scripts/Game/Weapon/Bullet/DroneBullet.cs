@@ -27,7 +27,7 @@ public class DroneBullet : Bullet
         if (other.gameObject.CompareTag("Enemy"))
         {
             drone.DamageComponent.DealDamage(other.gameObject.GetComponent<Enemy>(),
-                drone.Data.Damage * UpgradesSystem.Instance.DamageAmp);
+                drone.Data.Damage * UpgradesSystem.DamageAmp);
             InvokeOnHit(this);
         }
     }
